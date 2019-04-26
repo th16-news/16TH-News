@@ -1,49 +1,11 @@
-html, body {
-  color: #222;
-}
 
-/* Navbar */
-.navbar {
-    background-color: #2680C2;
-}
-.nav-link {
-  font-size: 1.2em !important;
-  display: block;
-}
 
 /* top news */
 .heading {
   margin: 1rem 0;
-  border: 2px solid #b4b4b4;
-  border-style: double;
+  border: 2px solid #186FAF;
   border-width: 0 0 0 6px;
   padding-left: 1rem;
-}
-
-/* footer */
-footer {
-  background-color: #627D98;
-  color: white;
-}
-.padding {
-  padding: 1rem;
-}
-footer hr {
-  border: none;
-  width: 70%;
-  border-top: 1px solid #cfc6c6;
-}
-
-footer i {
-  font-size: 2.5em;
-  margin-right: 1rem;
-}
-
-.fa-facebook {
-  color: lightcyan;
-}
-.fa-facebook:hover {
-  color: rgb(157, 226, 226);
 }
 
 /* Card */

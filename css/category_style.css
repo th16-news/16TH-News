@@ -81,9 +81,6 @@ footer i {
     .form-inline .form-control {
       max-width: 40%;
     }
-    .heading {
-      font-size: 2.5em;
-    }
     .column {
         flex: 50%;
         max-width: 50%;
