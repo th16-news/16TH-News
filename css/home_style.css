@@ -28,16 +28,21 @@
 }
 
 /* Link hover */
-.card a {
+.card-body>a {
   color: #222;
   text-decoration: none;
 }
+.card-block>a {
+  text-decoration: none;
+  color: #222;
+}
+
 .card a:hover {
   color: #2680C2;
 }
 
 /* Card hover */
-.card {
+/* .card {
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   opacity: 0.9;
   transition: opacity 0.5s;
@@ -46,7 +51,7 @@
   opacity: 1;
   transition: opacity 0.5s;
   box-shadow: 0 0 5px rgba(0,0,0,0.7);
-}
+} */
 
 .bigcard {
     max-height: 500px;
