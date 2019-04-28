@@ -67,18 +67,33 @@
                         <a class="dropdown-item" href="#">Điện thoại</a>
                     </div>
                 </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a class="nav-link search-toggle" onclick="showSearchBar()"><i class="fas fa-search"></i></a>
+                </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a href="#" class="nav-link" title="Đăng nhập"><i class="fas fa-sign-in-alt mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng nhập</span></a>    
+                </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a href="#" class="nav-link" title="Đăng kí"><i class="fas fa-user-edit mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng kí</span></a>
+                </li>
             </ul>
-            <div>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
+        
+    </nav>
+
+    <div id="search-bar" style="width: 100%;">
+        <div class="input-group container-fluid mt-2">
+            <input class="form-control form-inline" type="text" placeholder="Search">
+            <div class="input-group-append">
+                <form>
+                    <button class="btn btn-success m-0 search-button" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Homepage -->
-    <div class="container container-main">
+    <div class="container">
         <!-- 3-4 popular news -->
         <!-- two column, once big with one item, the other small with three items -->
         <div class="container topnews">

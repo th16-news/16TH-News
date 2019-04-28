@@ -44,7 +44,23 @@ body {
 	font-size: 1.2em !important;
 	display: block;
 }
+#search-bar {
+	visibility: hidden;
+	position: fixed;
+	z-index: 1;
+}
+.search-toggle {
+	background-color: transparent;
+	border: none;
+}
+.search-toggle:hover {
+	cursor: pointer;
+}
 
+.search-button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
 
 /* footer */
 footer {

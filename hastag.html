@@ -67,208 +67,215 @@
                         <a class="dropdown-item" href="#">Điện thoại</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown mr-lg-2">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Thủ thuật</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Máy tính</a>
-                        <a class="dropdown-item" href="#">Điện thoại</a>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a class="align-center nav-link search-toggle" onclick="showSearchBar()"><i class="fas fa-search"></i></a>
+                </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" title="Tài khoản"><i class="fas fa-user-circle mr-2"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Xem thông tin</a>
+                        <a class="dropdown-item" href="#">Đăng xuất</a>
                     </div>
                 </li>
             </ul>
-            <div>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
+
+    </nav>
+
+
+    <div id="search-bar" style="width: 100%;">
+        <div class="input-group container-fluid mt-2">
+            <input class="form-control form-inline" type="text" placeholder="Search">
+            <div class="input-group-append">
+                <form>
+                    <button class="btn btn-success m-0 search-button" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Tag name -->
-    <div class="container container-main">
-        <div class="container">
-            <div class="cat-heading heading">
-                <a href="#" class="text-decoration-none">
-                    <h3 class="display-4 m-1">#Smartphone</h3>
+    <div class="container">
+        <div class="cat-heading heading">
+            <a href="#" class="text-decoration-none">
+                <h3 class="display-4 m-1">#Smartphone</h3>
+            </a>
+        </div>
+    </div>
+    <hr class="my-4">
+
+
+    <!-- card-grid -->
+    <div class="container-fluid card-grid justify-content-center">
+        <div class="card text-left">
+            <a href="#"><img class="card-img-top" src="img/card_img_4.jpg" alt="">
+                <div class="card-body">
+                    <a href="#">
+
+                    </a>
+                    <a href="#">
+                        <h5 class="card-title">Chê thì cứ chê, nhưng iPhone XR vẫn là smartphone bán chạy nhất Quý 2
+                            năm nay tại Mỹ</h5>
+                    </a>
+                    <p class="card-text cat-time"><small class="text-muted"><a href="#"
+                                class="text-muted">Mobile</a><span class="middotDivider"></span>3 mins
+                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                    <p class="card-text">Body</p>
+                </div>
+        </div>
+        <div class="card text-left">
+            <a href="#"><img class="card-img-top" src="img/card_img_3.jpg" alt=""></a>
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Huawei phản hồi việc P30 Pro bị tố dùng hình ảnh có sẵn để dựng lại ảnh
+                        chụp
+                        Mặt trăng: "AI không thay thế hình ảnh kiểu đó"</h5>
                 </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3
+                        mins ago<br>#Smartphone</small></p>
+                <p class="card-text">Body</p>
             </div>
         </div>
-        <hr class="my-4">
-    
-    
-        <!-- card-grid -->
-        <div class="container card-grid justify-content-center">
-            <div class="card text-left">
-                <a href="#"><img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                    <div class="card-body">
-                        <a href="#">
-    
-                        </a>
-                        <a href="#">
-                            <h5 class="card-title">Chê thì cứ chê, nhưng iPhone XR vẫn là smartphone bán chạy nhất Quý 2
-                                năm nay tại Mỹ</h5>
-                        </a>
-                        <p class="card-text cat-time"><small class="text-muted"><a href="#"
-                                    class="text-muted">Mobile</a><span class="middotDivider"></span>3 mins
-                                ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                        <p class="card-text">Body</p>
-                    </div>
+        <div class="card text-left">
+            <a href="#"><img class="card-img-top" src="img/card_img_2.jpg" alt=""></a>
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Title</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <a href="#"><img class="card-img-top" src="img/card_img_3.jpg" alt=""></a>
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Huawei phản hồi việc P30 Pro bị tố dùng hình ảnh có sẵn để dựng lại ảnh
-                            chụp
-                            Mặt trăng: "AI không thay thế hình ảnh kiểu đó"</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3
-                            mins ago<br>#Smartphone</small></p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <a href="#"><img class="card-img-top" src="img/card_img_1.jpg" alt=""></a>
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Lenovo tiết lộ mảng kinh doanh smartphone không còn thua lỗ sau khi thâu
+                        tóm
+                        Motorola</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <a href="#"><img class="card-img-top" src="img/card_img_2.jpg" alt=""></a>
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Title</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Title</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <a href="#"><img class="card-img-top" src="img/card_img_1.jpg" alt=""></a>
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Lenovo tiết lộ mảng kinh doanh smartphone không còn thua lỗ sau khi thâu
-                            tóm
-                            Motorola</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Thử thách chụp đêm xuyên Việt cùng P30 Pro</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Title</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Apple bị kiện tập thể vì cố tình bán iPhone 4, 4s và 5 với nút nguồn bị
+                        hỏng
+                    </h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Thử thách chụp đêm xuyên Việt cùng P30 Pro</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">OnePlus 7 Pro lộ giá bán từ 745 USD</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Apple bị kiện tập thể vì cố tình bán iPhone 4, 4s và 5 với nút nguồn bị
-                            hỏng
-                        </h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Từ chỗ chỉ biết copy, "xào nấu", smartphone Trung Quốc đã định nghĩa lại
+                        "sáng tạo"
+                        trước cả Samsung, Apple như thế nào</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">OnePlus 7 Pro lộ giá bán từ 745 USD</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Chơi PUBG Mobile, Asphalt 9, Dynasty Legend trên Galaxy Fold trông như
+                        thế
+                        nào?</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Từ chỗ chỉ biết copy, "xào nấu", smartphone Trung Quốc đã định nghĩa lại
-                            "sáng tạo"
-                            trước cả Samsung, Apple như thế nào</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Title</h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Chơi PUBG Mobile, Asphalt 9, Dynasty Legend trên Galaxy Fold trông như
-                            thế
-                            nào?</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
-            </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Title</h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
-            </div>
-            <div class="card text-left">
-                <img class="card-img-top" src="img/card_img_4.jpg" alt="">
-                <div class="card-body">
-                    <a href="#">
-                        <h5 class="card-title">Mua chip 5G từ cả Qualcomm và Samsung: chiến thuật khôn ngoan của "cáo
-                            già"
-                            Tim Cook
-                        </h5>
-                    </a>
-                    <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                class="middotDivider"></span>3 mins
-                            ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
-                    </p>
-                    <p class="card-text">Body</p>
-                </div>
+        </div>
+        <div class="card text-left">
+            <img class="card-img-top" src="img/card_img_4.jpg" alt="">
+            <div class="card-body">
+                <a href="#">
+                    <h5 class="card-title">Mua chip 5G từ cả Qualcomm và Samsung: chiến thuật khôn ngoan của "cáo
+                        già"
+                        Tim Cook
+                    </h5>
+                </a>
+                <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted">Mobile</a><span
+                            class="middotDivider"></span>3 mins
+                        ago<br><a href="#" class="text-muted">#Smartphone</a></small></p>
+                </p>
+                <p class="card-text">Body</p>
             </div>
         </div>
     </div>
@@ -327,6 +334,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
