@@ -15,7 +15,7 @@ body {
     border-radius: 2px;
 }
 .login-form {
-    width: 350px;
+    max-width: 480px;
     margin: 0 auto;
     padding: 100px 0 30px;		
 }
@@ -107,10 +107,15 @@ body {
     z-index: 1;
 }
 .facebook-button {
+    font-weight: normal !important;
     width: 100%;
-    background-color: #337AB7 !important;
+    background-color: #507cc0 !important;
     color: #FFFFFF !important;
 }
 .facebook-button:hover {
     text-decoration: none;
+    opacity: 0.8;
+}
+.facebook-button i {
+    font-size: 20px;
 }
