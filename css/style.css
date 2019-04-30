@@ -49,6 +49,12 @@ body {
 	position: fixed;
 	z-index: 1;
 }
+#search-bar input {
+	height: 38px !important;
+}
+#search-bar button {
+	height: 38px;
+}
 .search-toggle {
 	background-color: transparent;
 	border: none;

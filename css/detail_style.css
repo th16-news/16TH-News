@@ -1,0 +1,87 @@
+/* post */
+.post {
+    max-width: 740px;
+    background-color: white;
+}
+.post .content {
+    font-size: 1.3em;
+}
+.post .breadcrumb {
+    background-color: transparent;
+    opacity: 0.8;
+    margin: 0;
+    padding: 0.5rem 0;
+    font-size: 0.8em;
+}
+.post .breadcrumb a {
+    color: #222;
+}
+.post .tag a {
+    font-size: 0.8em;
+    padding: 0.2rem;
+}
+
+/* Middot separator */
+.middotDivider {
+	padding: 0 0.5em;
+	font-size: 1em;
+}
+.middotDivider:after {
+	content: '\00B7';
+}
+.post .category:hover {
+    text-decoration: underline;
+}
+
+/* comment */
+.comment {
+    max-width: 740px;
+}
+.comment .card:hover {
+    animation: none;
+}
+
+.comment .user-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    padding: 2px;
+    border: 1px solid black;
+}
+
+/* Card-grid */
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+.card-grid .card {
+    max-width: 300px;
+    max-height: 400px;
+}
+.card {
+    margin: 1rem;
+}
+
+/* Link hover */
+.card-body>a {
+	color: #222;
+	text-decoration: none;
+}
+.card-block>a {
+	text-decoration: none;
+	color: #222;
+}
+
+.card a:hover {
+	color: #2680C2;
+}
+
+@media (max-width: 768px) {
+    .post .content {
+        font-size: 1em;
+    }
+    .post h1 {
+        font-size: 2em;
+    }
+}
