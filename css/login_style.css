@@ -1,6 +1,6 @@
 body {
     color: #fff;
-    background: #d47677;
+    background: #d47677 !important;
 }
 .form-control {
     min-height: 41px;

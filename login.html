@@ -13,55 +13,149 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link rel="stylesheet" href="css/login_style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-        <div class="login-form">
-                <form action="/examples/actions/confirmation.php" method="post">
-                    <div class="avatar">
-                        <i class="fas fa-user avatar-icon"></i>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark mynav sticky-top">
+        <a class="navbar-brand ml-lg-4" href="#"><img src="img/logo.jpg" alt="logo"></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item dropdown active mr-lg-2">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Mobile</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Điện thoại</a>
+                        <a class="dropdown-item" href="#">Máy tính bảng</a>
                     </div>
-                    <h2 class="text-center">Login</h2>   
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-                        </div>
+                </li>
+                <li class="nav-item dropdown mr-lg-2">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Internet</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Digital marketting</a>
+                        <a class="dropdown-item" href="#">Media</a>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-lock"></i>
-                                </div>
-                            </div>
-                            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-                        </div>
-                    </div>     
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                </li>
+                <li class="nav-item dropdown mr-lg-2">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Khám phá</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Lịch sử</a>
+                        <a class="dropdown-item" href="#">Tri thức</a>
                     </div>
-                    <div class="clearfix">
-                        <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-                        <a href="#" class="pull-right">Forgot Password?</a>
+                </li>
+                <li class="nav-item dropdown mr-lg-2">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Trà đá công nghệ</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Tản mạn</a>
+                        <a class="dropdown-item" href="#">Ý tưởng sáng tạo</a>
                     </div>
-                    <div class="or-seperator">
-                        <b>or</b>
+                </li>
+                <li class="nav-item dropdown mr-lg-2">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Thủ thuật</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Máy tính</a>
+                        <a class="dropdown-item" href="#">Điện thoại</a>
                     </div>
-                    <div class="form-group">
-                        <p class="text-muted text-center">Sign in with your social media account</p>
-                        <a href="#" class="btn btn-primary btn-lg facebook-button text-decoration-none"><i class="fab fa-facebook"></i> Facebook</a>
+                </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a class="align-center nav-link search-toggle" onclick="showSearchBar()"><i
+                            class="fas fa-search"></i></a>
+                </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" title="Tài khoản"><i
+                            class="fas fa-user-circle mr-2"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Xem thông tin</a>
+                        <a class="dropdown-item" href="#">Đăng xuất</a>
                     </div>
-                </form>
-                <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>
+                </li>
+            </ul>
+        </div>
+    
+    </nav>
+
+    <div class="login-form">
+        <form action="/examples/actions/confirmation.php" method="post">
+            <div class="avatar">
+                <i class="fas fa-user avatar-icon"></i>
             </div>
+            <h2 class="text-center">Login</h2>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+                    <input type="password" class="form-control" name="password" placeholder="Password"
+                        required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+            </div>
+            <div class="clearfix">
+                <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+                <a href="#" class="pull-right">Forgot Password?</a>
+            </div>
+            <div class="or-seperator">
+                <b>or</b>
+            </div>
+            <div class="form-group">
+                <p class="text-muted text-center">Sign in with your social media account</p>
+                <a href="#" class="btn btn-primary btn-lg facebook-button text-decoration-none"><i
+                        class="fab fa-facebook"></i> Facebook</a>
+            </div>
+        </form>
+        <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>
+    </div>
 
-
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center padding">
+                    <a class="navbar-brand mx-auto" href="#"><img src="img/logo.jpg" alt="logo"></a>
+                    <p class="lead">Easy come, easy go</p>
+                </div>
+                <div class="col-md-4 text-center padding">
+                    <hr>
+                    <h3>About us</h3>
+                    <hr>
+                    <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
+                    <p>Nguyễn Đăng Khởi</p>
+                    <p>Trương Hoài Tâm</p>
+                </div>
+                <div class="col-md-4 text-center padding">
+                    <hr>
+                    <h3>Contact us</h3>
+                    <hr>
+                    <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
+                    <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
