@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHÂN HỆ BIÊN TẬP VIÊN</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Chuyển đổi điều hướng</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">PHÂN HỆ BIÊN TẬP VIÊN</a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Thông tin người dùng</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cài đặt</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="admin123/item">
+                                <i class="fa fa-dashboard fa-fw"></i> CRUD
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+        </nav>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">QUẢN LÝ BÀI VIẾT - BIÊN TẬP VIÊN - ADD</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Biểu mẫu
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                            <li>Tag: không được rỗng</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" action="admin123/item/save/" method="POST">
+
+                                        <div class="form-group">
+                                            <label>Nhãn tag</label>
+                                            <select name="tag" class="form-control">
+                                                <option value="novalue">Chọn nhãn tag</option>
+                                            </select>
+                                            <a href="#" class="btn btn-outline-info">Smartphone</a>
+                                            <a href="#" class="btn btn-outline-info">Iphone</a>
+                                        </div>
+
+                                        
+                                        <div class="form-group">
+                                            <label>Thời điểm xuất bản</label>
+                                            
+
+                                            <div class='input-group date' id="datetimepicker1">
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                            <script>
+                                                $('#datetimepicker1').datetimepicker({
+                                                    allowInputToggle: true
+                                                });
+                                            </script>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Lý do từ chối</label>
+                                            <textarea class="form-control" name="reason-for-refusing"
+                                                value=""></textarea>
+                                        </div>
+
+                                        <input class="form-control" name="id" value="" type="hidden">
+                                        <button type="submit" class="btn btn-primary">Hoàn tất </button>
+                                        <a type="button" href="admin123/item/" class="btn btn-default">Hủy bỏ</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/sb-admin.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/custom.js"></script>
+
+</body>
+
+</html>
