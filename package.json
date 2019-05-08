@@ -1,0 +1,27 @@
+{
+  "name": "16th_news",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/th16-news/16TH-News.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/th16-news/16TH-News/issues"
+  },
+  "homepage": "https://github.com/th16-news/16TH-News#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "mongoose": "^5.5.6",
+    "morgan": "^1.9.1"
+  }
+}
