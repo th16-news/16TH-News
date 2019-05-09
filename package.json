@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/th16-news/16TH-News#readme",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-ejs-layouts": "^2.5.0",
     "mongoose": "^5.5.6",

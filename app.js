@@ -22,15 +22,33 @@ global.__path_views = __path_app + pathConfig.folder_views + '/';
 global.__path_views_backend = __path_views + pathConfig.folder_module_backend + '/';
 global.__path_views_frontend = __path_views + pathConfig.folder_module_frontend + '/';
 
-// view engine setup
+const systemConfig = require(__path_configs + 'system');
+
 var app = express();
+//set port
+var port = process.env.PORT || '3000';
+app.listen(port);
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', __path_views_backend + 'backend');
 
+// serve static files such as images, CSS files, and JavaScript files
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+//Local variable
+app.locals.systemConfig = systemConfig;
+
+//Setup router
+app.use(`/${systemConfig.prefixWriter}`, require(__path_routes + 'backend/writer/index'));
+app.use(`/${systemConfig.prefixEditor}`, require(__path_routes + 'backend/editor/index'));
+//app.use(`/${systemConfig.prefixAdministrator}`, require(__path_routes + 'backend/administrator/index'));
+
 
 mongoose.connect(`mongodb+srv://DangKhoi-HoaiTam:dangkhoihoaitam@th16-news-zgkzt.gcp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true });
+
 
 
 module.exports = app;
