@@ -24,7 +24,13 @@ global.__path_views_frontend = __path_views + pathConfig.folder_module_frontend 
 
 const systemConfig = require(__path_configs + 'system');
 
+mongoose.connect(`mongodb+srv://Hatomia:hatomiatruong@th16-news-vwlpp.gcp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true });
+
 var app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 //set port
 var port = process.env.PORT || '3000';
 app.listen(port);
@@ -44,10 +50,7 @@ app.locals.systemConfig = systemConfig;
 //Setup router
 app.use(`/${systemConfig.prefixWriter}`, require(__path_routes + 'backend/writer/index'));
 app.use(`/${systemConfig.prefixEditor}`, require(__path_routes + 'backend/editor/index'));
-//app.use(`/${systemConfig.prefixAdministrator}`, require(__path_routes + 'backend/administrator/index'));
-
-
-mongoose.connect(`mongodb+srv://DangKhoi-HoaiTam:dangkhoihoaitam@th16-news-zgkzt.gcp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true });
+app.use(`/${systemConfig.prefixAdministrator}`, require(__path_routes + 'backend/administrator/index'));
 
 
 

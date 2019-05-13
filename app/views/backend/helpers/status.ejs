@@ -1,0 +1,13 @@
+<%
+    statusHelper = (linkPrefix, status, id) => {
+        let xhtmlStatus = '';
+        status = (status === "Hoạt động") ? "active" : "inactive";
+        let link = linkPrefix + 'change-status/' + id + '/' + status;
+        if (status === "active") {
+            xhtmlStatus = `<span class="label label-success">Hoạt động</span>`
+        } else if (status === "inactive") {
+            xhtmlStatus = `<span class="label label-warning">Không hoạt động</span>`
+        }
+        return `<a href="${link}">${xhtmlStatus}</a>`;
+    }
+%>

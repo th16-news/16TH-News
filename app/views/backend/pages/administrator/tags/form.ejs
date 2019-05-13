@@ -1,3 +1,8 @@
+<% 
+  const collection = 'tags';
+  const linkPrefix = systemConfig.prefixAdministrator + `/${collection}/`;
+%>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -16,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <form role="form" action="" method="POST">
+                        <form role="form" action="<%= linkPrefix %>save/" method="POST">
                             <div class="form-group">
                                 <label>Tên tag</label>
                                 <input class="form-control" name="name" id="name_tag" value="">
@@ -33,9 +38,8 @@
                                 </select>
                             </div>
 
-                            <input class="form-control" name="id" value="" type="hidden">
                             <button type="submit" class="btn btn-primary">Hoàn tất </button>
-                            <a type="button" href="admin123/item/" class="btn btn-default">Hủy bỏ</a>
+                            <a type="button" href="<%= linkPrefix %>" class="btn btn-default">Hủy bỏ</a>
                         </form>
                     </div>
                 </div>
