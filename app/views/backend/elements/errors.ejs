@@ -1,0 +1,36 @@
+<% if (errors) { %>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <% errors.forEach((error) => { 
+                    var strWord = '';
+                    switch(error.param) {
+                        case 'name':
+                            strWord = 'Tiêu đề';
+                            break;
+                        case 'thumb':
+                            strWord = 'Ảnh bìa';
+                            break;
+                        case 'category_id':
+                            strWord = 'Chuyên mục';
+                            break;
+                        case 'type':
+                            strWord = 'Loại bài viết';
+                            break;
+                        case 'summary':
+                            strWord = 'Tóm tắt';
+                            break;
+                        case 'content':
+                            strWord = 'Nội dung';
+                            break;
+                        default:
+                    } %>
+                
+                <li><b><%= strWord %></b>: <%= error.msg %></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</div>
+<% } %>

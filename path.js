@@ -10,5 +10,6 @@ module.exports = {
     folder_views: 'views',
     folder_module_backend: 'backend',
     folder_module_frontend: 'frontend',
+    folder_public: 'public',
     folder_uploads: 'uploads'
 }

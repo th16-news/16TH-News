@@ -1,4 +1,4 @@
-const TagModel = require(__path_schemas + 'administrator/tags');
+const TagModel = require(__path_schemas + 'tags');
 
 module.exports = {
     listTags: (params, options = null) => {
@@ -12,10 +12,12 @@ module.exports = {
       
         return TagModel
                 .find(objWhere)
-                .select('name status');
+                .select('name status')
                 //.sort(sort)
-                //.skip((params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage))
-                //.limit(params.pagination.totalItemsPerPage);
+    },
+
+    listTagsInSelectbox: () => {
+        return TagModel.find({}, {_id: 1, name: 1});
     },
 
     changeStatus: (id, currentStatus) => {

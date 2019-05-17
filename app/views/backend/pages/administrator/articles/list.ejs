@@ -1,3 +1,11 @@
+<% include ./../../../helpers/status %>
+<% include ./../../../helpers/pagination %>
+
+<% 
+  const collection = 'articles';
+  const linkPrefix = systemConfig.prefixAdministrator + `/${collection}/`;
+%>
+
 <div class="alert alert-success" role="alert">
 
     <span class="close-btn">&times;</span> Thay đổi Trạng thái thành công
@@ -63,93 +71,58 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <form role="form" class="form-inline zt-form" id="zt-form" action="" method="post">
-                    <div class="zcontrols">
-                        <select name="action" class="form-control slbAction">
-                            <option value="">Hành động hàng loạt</option>
-                            <option value="admin123/item/change-status/active">
-                                Đã xuất bản
-                            </option>
-                            <option value="admin123/item/change-status/active">
-                                Đã được duyệt
-                            </option>
-                            <option value="admin123/item/delete/">
-                                Xóa
-                            </option>
-                        </select>
-                        <button class="btn btn-info btnAction" type="button" id="btn-action" value="btnAction"
-                            disabled>Áp dụng</button>
-
-                    </div>
-
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <input type="checkbox" class="cbAll" />
-                                    </th>
                                     <th>#</th>
                                     <th>Tên bài viết</th>
                                     <th>Chuyên mục</th>
                                     <th>Trạng thái</th>
+                                    <th>Tên phóng viên</th>
+                                    <th>Tên biên tập viên</th>
                                     <th>Thời gian xuất bản</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <% if (data.length > 0) { 
+                                    data.forEach( (item, index) => { %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="cid" value="5a9e5a96da67bc078421d7d6" />
+                                        <%= (params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage) + index + 1 %>
                                     </td>
                                     <td>
-                                        1
+                                        <a href=""><%= item.name %></a>
                                     </td>
                                     <td>
-                                        <a href="">Bài viết 1</a>
+                                        <%= item.category.name %>
                                     </td>
                                     <td>
-                                        Chuyên mục 1
+                                        <%- statusHelper(linkPrefix, item.status, item.id, collection) %>
                                     </td>
                                     <td>
-                                        <a href=""><span class="label label-success">Đã xuất bản</span></a>
+                                        <%= item.created.user_name %>
                                     </td>
                                     <td>
-
+                                        <%= item.browsed.user_name %>
                                     </td>
                                     <td>
-                                        <a href="admin123/item/delete/5a9e5a96da67bc078421d7d6" type="button"
+                                        <%= item.expected_publish_time %>
+                                    </td>
+                                    <td>
+                                        <a href="<%= linkPrefix %>delete/<%= item.id %>" type="button"
                                             class="btn btn-danger btn-sm btn-delete">Xóa</a>
                                     </td>
                                 </tr>
-
+                                <% });
+                                } else { %>
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" name="cid" value="5abdc9aa598c600b6c7fd56b" />
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        <a href="">Bài viết 2</a>
-                                    </td>
-                                    <td>
-                                        Chuyên mục 2
-                                    </td>
-                                    <td>
-                                        <a href=""><span class="label label-danger">Đã được duyệt</span></a>
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                        <a href="admin123/item/delete/5abdc9aa598c600b6c7fd56b" type="button"
-                                            class="btn btn-danger btn-sm btn-delete">Xóa</a>
+                                    <td colspan="9">
+                                        <h3>Không có dữ liệu</h3>
                                     </td>
                                 </tr>
-
-
+                                <% } %>
                             </tbody>
                         </table>
                     </div>
@@ -159,42 +132,6 @@
     </div>
 
     <div class="col-lg-12">
-        <div class="panel panel-info" id="pagination">
-            <div class="panel-heading">
-                Phân trang
-                <span class="label label-danger">Tổng số bài viết: 0</span>
-                <span class="label label-warning">Tổng số trang: 0</span>
-            </div>
-
-            <div class="panel-body">
-                <div class="infor-pagination">
-
-                    <p>Số bài trong trang: <span>0</span></p>
-
-                    <p>Hiển thị <span> 0 </span> tới <span>0</span> của <span>0</span> bài viết</p>
-                </div>
-                <div class="ad-pagination">
-
-                    <ul class="pagination text-center">
-
-                        <li class="disabled"><a>«</a></li>
-
-                        <li><a href="admin123/item/page=1">1</a></li>
-
-                        <li class="active"><a>2</a></li>
-
-                        <li><a href="admin123/item/page=3">3</a></li>
-
-                        <li><a href="admin123/item/page=4">4</a></li>
-
-                        <li><a href="admin123/item/page=5">5</a></li>
-
-                        <li><a href="admin123/item/page=0">»</a></li>
-
-                    </ul>
-
-                </div>
-            </div>
-        </div>
+        <%- paginationHelper(params.pagination, linkPrefix, params.currentStatus, params.keyword) %>
     </div>
 </div>

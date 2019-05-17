@@ -43,7 +43,7 @@
                                     <%= item.name %>
                                 </td>
                                 <td>
-                                    <%- statusHelper(linkPrefix, item.status, item.id) %>
+                                    <%- statusHelper(linkPrefix, item.status, item.id, collection) %>
                                 </td>
                                 <td>
                                     <a href="<%= linkPrefix %>delete/<%= item.id %>" type="button"

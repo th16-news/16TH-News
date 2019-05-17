@@ -127,3 +127,8 @@ $(document).ready(function () {
         })    
     }
 });
+
+
+$('select[name="category_id"]').change(function(){
+    $('input[name="category_name"]').val($(this).find('option:selected').text());
+});

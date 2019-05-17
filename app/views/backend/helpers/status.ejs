@@ -1,13 +1,53 @@
 <%
-    statusHelper = (linkPrefix, status, id) => {
-        let xhtmlStatus = '';
-        status = (status === "Hoạt động") ? "active" : "inactive";
-        let link = linkPrefix + 'change-status/' + id + '/' + status;
-        if (status === "active") {
-            xhtmlStatus = `<span class="label label-success">Hoạt động</span>`
-        } else if (status === "inactive") {
-            xhtmlStatus = `<span class="label label-warning">Không hoạt động</span>`
+    statusHelper = (linkPrefix, status, id, collection, position = null) => {
+        let xhtmlStatus = '', link = '';
+        if (collection == "categories" || collection == "tags" || collection == "users") {
+            status = (status === "Hoạt động") ? "active" : "inactive";
+            link = linkPrefix + 'change-status/' + id + '/' + status;
+            if (status === "active") {
+                xhtmlStatus = `<span class="label label-success">Hoạt động</span>`
+            } else if (status === "inactive") {
+                xhtmlStatus = `<span class="label label-warning">Không hoạt động</span>`
+            }
+            return `<a href="${link}">${xhtmlStatus}</a>`;
+        } else if (collection == "articles") {
+            switch(status) {
+                case 'Chưa được duyệt':
+                    status = 'not_browsed';
+                    break;
+                case 'Đã được duyệt':
+                    status = 'browsed';
+                    break;
+                case 'Bị từ chối':
+                    status = 'refused';
+                    break;
+                case 'Đã xuất bản':
+                    status = 'published';
+                    break;
+                default:
+            }
+            if (position == 'Phóng viên' || position == 'Biên tập viên') {
+                if (status === "published") {
+                    xhtmlStatus = `<span class="label label-success">Đã xuất bản</span>`
+                } else if (status === "browsed") {
+                    xhtmlStatus = `<span class="label label-primary">Đã được duyệt</span>`
+                } else if (status === 'not_browsed') {
+                    xhtmlStatus = `<span class="label label-warning">Chưa được duyệt</span>`
+                } else if (status === 'refused') {
+                    xhtmlStatus = `<span class="label label-danger">Bị từ chối</span>`
+                }
+                return `${xhtmlStatus}`;
+            }
+            else if (position == null) {
+                status = (status === "Đã xuất bản") ? "published" : "browsed";
+                link = linkPrefix + 'change-status/' + id + '/' + status;
+                if (status === "published") {
+                    xhtmlStatus = `<span class="label label-success">Đã xuất bản</span>`
+                } else if (status === "browsed") {
+                    xhtmlStatus = `<span class="label label-primary">Đã được duyệt</span>`
+                }
+                return `<a href="${link}">${xhtmlStatus}</a>`;
+            }
         }
-        return `<a href="${link}">${xhtmlStatus}</a>`;
     }
 %>

@@ -1,3 +1,13 @@
+<% include ./../../helpers/image %>
+<% include ./../../helpers/select-box %>
+
+<% 
+  const collection = 'articles';
+  const linkPrefix = systemConfig.prefixWriter + `/${collection}/`;
+  const folderUpload = 'uploads/articles/';
+%>
+
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -5,67 +15,78 @@
                 Biểu mẫu
             </div>
             <div class="panel-body">
+                <% include ./../../elements/errors %>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="alert alert-danger" role="alert">
-                            <ul>
-                                <li>Tiêu đề: không được rỗng</li>
-                                <li>Chuyên mục: không được rỗng</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <form role="form" action="admin123/item/save/" method="POST">
+                        <form role="form" action="<%= linkPrefix %>save/" enctype="multipart/form-data" method="POST">
                             <div class="form-group">
                                 <label>Tiêu đề</label>
-                                <input class="form-control" name="title" value="">
+                                <input class="form-control" name="name" value="<%= article.name %>">
                             </div>
 
                             <div class="form-group">
                                 <label>Ảnh bìa</label>
                                 <input class="form-control" type="file" name="thumb">
                             </div>
+                            <% if (article.id !== undefined && article.id !== '') { %>
+                                <div class="form-group">
+                                  <label></label>
+                                  <%- imageHelper(folderUpload, article.thumb, article.name, 'img-avatar-form') %>
+                                </div>
+                            <% } %>
 
                             <div class="form-group">
                                 <label>Chuyên mục</label>
-                                <select name="category" class="form-control">
-                                    <option value="novalue">Chọn chuyên mục</option>
-                                </select>
+                                <%- selectBoxHelper('category_id', listCategories, article.category.id) %>
                             </div>
 
                             <div class="form-group">
                                 <label>Nhãn tag</label>
-                                <select name="tag" class="form-control">
-                                    <option value="novalue">Chọn nhãn tag</option>
-                                </select>
-                                <a href="#" class="btn btn-outline-info">Smartphone</a>
-                                <a href="#" class="btn btn-outline-info">Iphone</a>
+                                <br/>
+                                <% if (items != '') items += ',';
+                                    article.tags.forEach((item) => { %>
+                                    <span class="tm-tag tm-tag-info">
+                                        <span><%= item %></span>
+                                        <a href="<%= linkPrefix %>form/<%= article.id %>/delete-tags/<%= items + item %>" class="tm-tag-remove">x</a>
+                                    </span>
+                                <% }) %>
+                                <input type="text" name="tags" placeholder="Nhập các tag" class="tm-input form-control tm-input-info"/>
                             </div>
+                            <script type="text/javascript">
+                                $(".tm-input").tagsManager();
+
+                            </script>
+                            
 
                             <div class="form-group">
                                 <label>Loại bài viết</label>
-                                <select name="article-type" class="form-control">
-                                    <option value="novalue">Chọn loại bài viết</option>
-                                    <option value="normal">Thông thường</option>
-                                    <option value="premium">Premium</option>
+                                <select name="type" class="form-control">
+                                    <option value="novalue" <% (article.type == 'novalue') ? 'selected="selected"' : '' %> >Chọn loại bài viết</option>
+                                    <option value="normal" <%= (article.type == "Thông thường") ? 'selected="selected"' : '' %> >Thông thường</option>
+                                    <option value="premium" <%= (article.type == "Premium") ? 'selected="selected"' : '' %> >Premium</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Tóm tắt</label>
-                                <textarea class="form-control" name="summary" value=""></textarea>
+                                <textarea class="form-control" name="summary" value="<%= article.summary %>"><%= article.summary %></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label>Nội dung</label>
-                                <textarea class="form-control" name="content" rows="2" id="content_ckeditor"></textarea>
+                                <textarea class="form-control" name="content" rows="2" id="content_ckeditor" value="<%- article.content %>"><%- article.content %></textarea>
                             </div>
 
-                            <input class="form-control" name="id" value="" type="hidden">
-                            <button type="submit" class="btn btn-primary">Hoàn tất </button>
-                            <a type="button" href="admin123/item/" class="btn btn-default">Hủy bỏ</a>
+                            <div>
+                                <input name="items" value="<%= items %>" type="hidden"/>
+                                <input name="tags_old" value="<%= article.tags %>" type="hidden"/>
+                                <input name="image_old" value="<%= article.thumb %>" type="hidden"/>
+                                <input class="form-control" name="id" value="<%= article.id %>" type="hidden">
+                                <input class="form-control" name="category_name" value="<%= article.category.name %>" type="hidden">
+                                <button type="submit" class="btn btn-primary">Hoàn tất </button>
+                                <a type="button" href="<%= linkPrefix %>" class="btn btn-default">Hủy bỏ</a>
+                            </div>
+                            
                         </form>
                     </div>
                 </div>

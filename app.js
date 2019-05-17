@@ -1,13 +1,17 @@
 var express = require('express');
 var expressLayouts = require('express-ejs-layouts');
 var mongoose = require('mongoose');
+var flash = require('connect-flash'); // 
+const session = require('express-session');
 
 var path = require('path');
+const validator = require('express-validator');
 
 const pathConfig = require('./path');
 
 global.__base = __dirname + '/';
 global.__path_app = __base + pathConfig.folder_app + '/';
+global.__path_public = __base + pathConfig.folder_public + '/';
 
 global.__path_configs = __path_app + pathConfig.folder_configs + '/';
 global.__path_helpers = __path_app + pathConfig.folder_helpers + '/';
@@ -18,6 +22,7 @@ global.__path_schemas = __path_app + pathConfig.folder_schemas + '/';
 global.__path_uploads= __path_app + pathConfig.folder_uploads + '/';
 global.__path_validates = __path_app + pathConfig.folder_validates + '/';
 global.__path_views = __path_app + pathConfig.folder_views + '/';
+global.__path_uploads= __path_public + pathConfig.folder_uploads + '/';
 
 global.__path_views_backend = __path_views + pathConfig.folder_module_backend + '/';
 global.__path_views_frontend = __path_views + pathConfig.folder_module_frontend + '/';
@@ -34,6 +39,31 @@ app.use(express.urlencoded({ extended: false }));
 //set port
 var port = process.env.PORT || '3000';
 app.listen(port);
+
+// set session
+app.use(session({
+    secret: 'hatomia',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 15*60*1000
+    }
+}));
+
+// set flash
+app.use(flash());
+app.use(function(req, res, next) {
+  res.locals.messages = req.flash();
+  next();
+})
+// use validator and custom
+app.use(validator({
+    customValidators: {
+        isNotEqual: (value1, value2) => {
+            return value1 !== value2;
+        }
+    }
+}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

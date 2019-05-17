@@ -9,9 +9,9 @@ const folderView = __path_views_backend + 'pages/administrator/categories/';
 const systemConfig = require(__path_configs + 'system');
 const linkIndex = '/' + systemConfig.prefixAdministrator + '/categories/';
 
-const moduleTitle = 'PHÂN HỆ ADMINISTRATOR';
-const pageTitle = 'Danh sách categories';
-const pageTitleAdd = 'Thêm mới category';
+const moduleTitle = 'PHÂN HỆ QUẢN TRỊ VIÊN';
+const pageTitle = 'Danh sách chuyên mục';
+const pageTitleAdd = 'Thêm mới chuyên mục';
 
 router.get('(/status/:status)?', (req, res, next) => {
     let params = {};
@@ -49,8 +49,8 @@ router.get('/form', (req, res, next) => {
     //let errors = null;
     res.render(`${folderView}form`, { 
         moduleTitle,
-        pageTitle: pageTitleAdd
-        /*, errors*/ 
+        pageTitle: pageTitleAdd,
+        /*errors,*/
     })
 })
 

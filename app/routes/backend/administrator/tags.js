@@ -9,7 +9,7 @@ const folderView = __path_views_backend + 'pages/administrator/tags/';
 const systemConfig = require(__path_configs + 'system');
 const linkIndex = '/' + systemConfig.prefixAdministrator + '/tags/';
 
-const moduleTitle = 'PHÂN HỆ ADMINISTRATOR';
+const moduleTitle = 'PHÂN HỆ QUẢN TRỊ VIÊN';
 const pageTitle = 'Danh sách tags';
 const pageTitleAdd = 'Thêm mới tag';
 
@@ -49,8 +49,8 @@ router.get('/form', (req, res, next) => {
     //let errors = null;
     res.render(`${folderView}form`, { 
         moduleTitle,
-        pageTitle: pageTitleAdd
-        /*, errors*/ 
+        pageTitle: pageTitleAdd,
+        /*errors,*/ 
     })
 })
 

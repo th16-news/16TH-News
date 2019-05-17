@@ -1,4 +1,4 @@
-const CategoryModel = require(__path_schemas + 'administrator/categories');
+const CategoryModel = require(__path_schemas + 'categories');
 
 module.exports = {
     listCategories: (params, options = null) => {
@@ -12,10 +12,12 @@ module.exports = {
       
         return CategoryModel
                 .find(objWhere)
-                .select('name status');
+                .select('name status')
                 //.sort(sort)
-                //.skip((params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage))
-                //.limit(params.pagination.totalItemsPerPage);
+    },
+
+    listCategoriesInSelectbox: () => {
+        return CategoryModel.find({}, {_id: 1, name: 1});
     },
 
     changeStatus: (id, currentStatus) => {

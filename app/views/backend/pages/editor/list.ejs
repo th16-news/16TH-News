@@ -1,3 +1,12 @@
+<% include ./../../helpers/article-type %>
+<% include ./../../helpers/status %>
+<% include ./../../helpers/pagination %>
+<%
+    const collection = 'articles';
+    const linkPrefix = systemConfig.prefixEditor + `/${collection}/`;
+    const position = 'Biên tập viên';
+%>
+
 <div class="alert alert-success" role="alert">
 
     <span class="close-btn">&times;</span> Thay đổi Trạng thái thành công
@@ -37,18 +46,6 @@
                         <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/active">
                             BỊ TỪ CHỐI (4)
                         </a>
-                        </br></br>
-                        <a class="btn m-b-sm btn-primary" href="">
-                            TẤT CẢ (4)
-                        </a>
-                        <a class="btn m-b-sm btn-default" href="">
-                            PREMIUM (2)
-                        </a>
-                        <a class="btn m-b-sm btn-default" href="">
-                            THÔNG THƯỜNG (2)
-                        </a>
-
-
                     </div>
                     <div class="col-sm-6">
                         <form action="admin123/item/all" method="GET">
@@ -82,176 +79,61 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <form role="form" class="form-inline zt-form" id="zt-form" action="" method="post">
-                    <div class="zcontrols">
-                        <select name="action" class="form-control slbAction">
-                            <option value="">Hành động hàng loạt</option>
-                            <option value="">
-                                Duyệt
-                            </option>
-                            <option value="">
-                                Từ chối
-                            </option>
-                        </select>
-                        <button class="btn btn-info btnAction" type="button" id="btn-action" value="btnAction"
-                            disabled>Áp dụng</button>
-
-                    </div>
-
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <input type="checkbox" class="cbAll" />
-                                    </th>
                                     <th>#</th>
                                     <th>Tiêu đề</th>
                                     <th>Ảnh bìa</th>
                                     <th>Loại bài viết</th>
                                     <th>Trạng thái</th>
+                                    <th>Tên phóng viên</th>
                                     <th>Thời điểm xuất bản</th>
                                     <th>Lý do từ chối</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="cid" value="5a9e5a96da67bc078421d7d6" />
-                                    </td>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <a href="">Bài báo 1</a>
-                                    </td>
-                                    <td>
-                                        <img id="" src="#" alt="" />
-                                    </td>
-                                    <td>
-                                        <span class="label label-success">Premium</span>
-                                    </td>
-                                    <td>
-                                        <span class="label label-success">Đã xuất bản</span>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <a href="admin123/item/form/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-warning btn-sm">Duyệt</a>
-                                        <a href="admin123/item/delete/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-danger btn-sm btn-delete">Từ
-                                            chối</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="cid" value="5abdc9aa598c600b6c7fd56b" />
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        <a href="">Bài báo 2</a>
-                                    </td>
-                                    <td>
-                                        <img id="" src="#" alt="" />
-                                    </td>
-                                    <td>
-                                        <span class="label label-primary">Thông thường</span>
-                                    </td>
-                                    <td>
-                                        <span class="label label-primary">Đã được duyệt</span>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <a href="admin123/item/form/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-warning btn-sm">Duyệt</a>
-                                        <a href="admin123/item/delete/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-danger btn-sm btn-delete">Từ
-                                            chối</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="cid" value="5af7d6a306b3d71a08df04b1" />
-                                    </td>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        <a href="">Bài báo 3</a>
-                                    </td>
-                                    <td>
-                                        <img id="" src="#" alt="" />
-                                    </td>
-                                    <td>
-                                        <span class="label label-primary">Thông thường</span>
-                                    </td>
-                                    <td>
-                                        <span class="label label-warning">Chưa được duyệt</span>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <a href="admin123/item/form/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-warning btn-sm">Duyệt</a>
-                                        <a href="admin123/item/delete/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-danger btn-sm btn-delete">Từ
-                                            chối</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="cid" value="5af7d6d506b3d71a08df04b2" />
-                                    </td>
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        <a href="">Bài báo 4</a>
-                                    </td>
-                                    <td>
-                                        <img id="" src="#" alt="" />
-                                    </td>
-                                    <td>
-                                        <span class="label label-success">Premium</span>
-                                    </td>
-                                    <td>
-                                        <span class="label label-danger">Bị từ chối</span>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <p></p>
-                                    </td>
-                                    <td>
-                                        <a href="admin123/item/form/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-warning btn-sm">Duyệt</a>
-                                        <a href="admin123/item/delete/5a9e5a96da67bc078421d7d6" type="button"
-                                            class="btn btn-danger btn-sm btn-delete">Từ
-                                            chối</a>
-                                    </td>
-                                </tr>
-
+                                <% if (data.length > 0) {
+                                    data.forEach( (item, index) => { %>
+                                        <tr>
+                                            <td>
+                                                <%= (params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage) + index + 1 %>
+                                            </td>
+                                            <td>
+                                                <a href=""><%= item.name %></a>
+                                            </td>
+                                            <td>
+                                                <img id="" src="#" alt="" />
+                                            </td>
+                                            <td>
+                                                <%- articleTypeHelper(linkPrefix, item.type, item.id, position) %>
+                                            </td>
+                                            <td>
+                                                <%- statusHelper(linkPrefix, item.status, item.id, collection, position) %>
+                                            </td>
+                                            <td>
+                                                <%= item.created.user_name %>
+                                            </td>
+                                            <td>
+                                                <%= item.expected_publish_time %>
+                                            </td>
+                                            <td>
+                                                <%= item.refuse_reason %>
+                                            </td>
+                                            <td>
+                                                <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
+                                                    class="btn btn-warning btn-sm">Duyệt</a>
+                                                <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
+                                                    class="btn btn-danger btn-sm btn-warning">Từ
+                                                    chối</a>
+                                            </td>
+                                        </tr>
+                                        <% });
+                                    } else { %>
+                                        <tr><td colspan="9"><h3>Không có dữ liệu</h3></td></tr>
+                                    <% } %>
                             </tbody>
                         </table>
                     </div>
@@ -261,42 +143,8 @@
     </div>
 
     <div class="col-lg-12">
-        <div class="panel panel-info" id="pagination">
-            <div class="panel-heading">
-                Phân trang
-                <span class="label label-danger">Tổng số bài báo: 0</span>
-                <span class="label label-warning">Tổng số trang: 0</span>
-            </div>
-
-            <div class="panel-body">
-                <div class="infor-pagination">
-
-                    <p>Số bài báo trong trang: <span>0</span></p>
-
-                    <p>Hiển thị <span> 0 </span> tới <span>0</span> của <span>0</span> bài báo</p>
-                </div>
-                <div class="ad-pagination">
-
-                    <ul class="pagination text-center">
-
-                        <li class="disabled"><a>«</a></li>
-
-                        <li><a href="admin123/item/page=1">1</a></li>
-
-                        <li class="active"><a>2</a></li>
-
-                        <li><a href="admin123/item/page=3">3</a></li>
-
-                        <li><a href="admin123/item/page=4">4</a></li>
-
-                        <li><a href="admin123/item/page=5">5</a></li>
-
-                        <li><a href="admin123/item/page=0">»</a></li>
-
-                    </ul>
-
-                </div>
-            </div>
-        </div>
+        
+            <%- paginationHelper(params.pagination, linkPrefix, params.currentStatus, params.keyword) %>
+        
     </div>
 </div>

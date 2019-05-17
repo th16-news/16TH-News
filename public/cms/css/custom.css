@@ -43,3 +43,13 @@ li.active > a:first-child{
 img.error-page-img {
     width: 800px;
 }
+
+#img-responsive\ img-avatar {
+    width: 60px;
+    height: 60px;
+} 
+
+#img-avatar-form {
+    width: 100px;
+    height: 100px;
+} 

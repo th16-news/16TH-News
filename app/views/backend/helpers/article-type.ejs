@@ -1,0 +1,25 @@
+<%
+    articleTypeHelper = (linkPrefix, article_type, id, position) => {
+        let xhtmlStatus = '', link = '';
+        if (position == 'Phóng viên') {
+            article_type = (article_type === "Premium") ? "premium" : "normal";
+            link = linkPrefix + 'change-article-type/' + id + '/' + article_type;
+            if (article_type === "premium") {
+                xhtmlArticleType = `<span class="label label-success">Premium</span>`
+            } else if (article_type === "normal") {
+                xhtmlArticleType = `<span class="label label-primary">Thông thường</span>`
+            }
+            return `<a href="${link}">${xhtmlArticleType}</a>`;
+        } else if (position == 'Biên tập viên') {
+            let color = '';
+            switch(article_type) {
+                case 'Premium':
+                    color = 'success';
+                case 'Thông thường':
+                    color = 'primary';
+                default:
+            }
+            return `<span class="label label-${color}">${article_type}</span>`;
+        }
+    }
+%>

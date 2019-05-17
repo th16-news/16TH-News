@@ -1,0 +1,21 @@
+<%
+    positionHelper = (position) => {
+        let color = '';
+        switch(position) {
+            case 'Độc giả':
+                color = 'primary';
+                break;
+            case 'Phóng viên':
+                color = 'success';
+                break;
+            case 'Biên tập viên':
+                color = 'warning';
+                break;
+            case 'Quản trị viên':
+                color = 'danger';
+                break;
+            default:
+        }
+        return `<span class="label label-${color}">${position}</span>`;
+    }
+%>
