@@ -20,6 +20,11 @@ module.exports = {
         return TagModel.find({}, {_id: 1, name: 1});
     },
 
+    countTags: (params) => {
+        let objWhere = { name: params.name };
+        return TagModel.countDocuments(objWhere);
+    },
+
     changeStatus: (id, currentStatus) => {
         let status = (currentStatus === "active") ? "Không hoạt động" : "Hoạt động";
         let data = {

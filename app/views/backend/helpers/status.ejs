@@ -39,7 +39,6 @@
                 return `${xhtmlStatus}`;
             }
             else if (position == null) {
-                status = (status === "Đã xuất bản") ? "published" : "browsed";
                 link = linkPrefix + 'change-status/' + id + '/' + status;
                 if (status === "published") {
                     xhtmlStatus = `<span class="label label-success">Đã xuất bản</span>`

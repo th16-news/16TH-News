@@ -17,7 +17,7 @@ module.exports = {
     },
 
     listCategoriesInSelectbox: () => {
-        return CategoryModel.find({}, {_id: 1, name: 1});
+        return CategoryModel.find({ status: 'Hoạt động' }, {_id: 1, name: 1});
     },
 
     changeStatus: (id, currentStatus) => {

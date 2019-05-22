@@ -6,6 +6,27 @@ let concatTag = (str1, str2) => {
     return old_tags.concat(tags);
 }
 
+let translate = (str) => {
+    let result = '';
+    switch(str) {
+        case 'published':
+            result = 'Đã xuất bản';
+            break;
+        case 'browsed':
+            result = 'Đã được duyệt';
+            break;
+        case 'not_browsed':
+            result = 'Chưa được duyệt';
+            break;
+        case 'refused':
+            result = 'Bị từ chối';
+            break;
+        default:
+    }
+    return result;
+}
+
 module.exports = {
-    concatTag
+    concatTag,
+    translate
 }

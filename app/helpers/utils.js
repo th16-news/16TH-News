@@ -1,41 +1,34 @@
-// create filter article-type
 module.exports = {
-    createFilterArticleType: async (currentArticleType) => {
-        const model = require(__path_schemas + "writer/articles");
+    createFilterStatus: async (currentStatus, collection, category = null, options = null) => {
+        const Model = require(__path_schemas + collection);
         let filter = [
-            { name: 'All', value: 'Tất cả', count: 0, class: 'default' },
-            { name: 'Premium', value: 'Premium', count: 0, class: 'default' },
-            { name: 'Normal', value: 'Thông thường', count: 0, class: 'default' }
+            { name: 'Tất cả', value: 'all', count: 0, class: 'default' },
+            { name: 'Đã xuất bản', value: 'published', count: 0, class: 'default' },
+            { name: 'Đã được duyệt', value: 'browsed', count: 0, class: 'default' },
+            { name: 'Chưa được duyệt', value: 'not_browsed', count: 0, class: 'default' },
+            { name: 'Bị từ chối', value: 'refused', count: 0, class: 'default' }
         ];
+
+        if (options == 'Quản trị viên') {
+            filter.splice(3);
+        }
 
         for (let index = 0; index < filter.length; index++) {
             let item = filter[index];
-            let condition = (item.value !== "Tất cả") ? { article_type: item.value } : {};
-            if (item.value === currentArticleType) filter[index].class = 'success';
-            await model.countDocuments(condition).then((number) => {
+            let condition = '';
+            if (category == null) {
+                condition = (item.value !== "all") ? { status: item.name } : {};
+            } else {
+                condition = (item.value !== "all") ? { status: item.name, category } : { category };
+            }
+            if (item.value === currentStatus) filter[index].class = 'success';
+            await Model.countDocuments(condition).then((number) => {
                 filter[index].count = number;
             });
         };
-        return filter;
-    },
-
-
-    createFilterStatus: async (currentStatus, right, collection) => {
-        const model = require(__path_schemas + right + "/" + collection);
-        let filter = [
-            { name: 'All', value: 'Tất cả', count: 0, class: 'default' },
-            { name: 'Active', value: 'Hoạt động', count: 0, class: 'default' },
-            { name: 'Inactive', value: 'Không hoạt động', count: 0, class: 'default' }
-        ];
-
-        for (let index = 0; index < filter.length; index++) {
-            let item = filter[index];
-            let condition = (item.value !== "Tất cả") ? { status: item.value } : {};
-            if (item.value === currentStatus) filter[index].class = 'primary';
-            await model.countDocuments(condition).then((number) => {
-                filter[index].count = number;
-            });
-        };
+        if (options == 'Quản trị viên') {
+            filter[0].count = filter[1].count + filter[2].count;
+        }
         return filter;
     }
 }

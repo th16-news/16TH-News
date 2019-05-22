@@ -1,8 +1,9 @@
 var express = require('express');
 var expressLayouts = require('express-ejs-layouts');
 var mongoose = require('mongoose');
-var flash = require('connect-flash'); // 
+var flash = require('connect-flash'); // phải có session
 const session = require('express-session');
+var moment = require('moment'); // chỉ file ejs
 
 var path = require('path');
 const validator = require('express-validator');
@@ -76,6 +77,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Local variable
 app.locals.systemConfig = systemConfig;
+app.locals.moment = moment;
 
 //Setup router
 app.use(`/${systemConfig.prefixWriter}`, require(__path_routes + 'backend/writer/index'));

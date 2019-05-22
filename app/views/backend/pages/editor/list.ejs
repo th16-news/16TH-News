@@ -1,24 +1,23 @@
 <% include ./../../helpers/article-type %>
 <% include ./../../helpers/status %>
 <% include ./../../helpers/pagination %>
+<% include ./../../helpers/image %>
+<% include ./../../helpers/filter-status %>
 <%
     const collection = 'articles';
     const linkPrefix = systemConfig.prefixEditor + `/${collection}/`;
     const position = 'Biên tập viên';
+    const folderUpload = 'uploads/articles/';
 %>
 
-<div class="alert alert-success" role="alert">
 
-    <span class="close-btn">&times;</span> Thay đổi Trạng thái thành công
-
-</div>
-
+<% include ./../../elements/notify %>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-info">
             <div class="panel-heading">
                 Tìm kiếm & Lọc
-                <a href="admin123/item">
+                <a href="<%= linkPrefix %>status/all">
                     <span id="icon-reload" class="glyphicon glyphicon-refresh"></span>
                 </a>
             </div>
@@ -26,39 +25,20 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="status-list col-sm-6 pl0">
-
-                        <a class="btn m-b-sm btn-success btn-sm" href="admin123/item/all">
-                            TẤT CẢ (4)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/inactive">
-                            ĐÃ XUẤT BẢN (0)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/active">
-                            ĐÃ ĐƯỢC DUYỆT (4)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/inactive">
-                            CHƯA ĐƯỢC DUYỆT (0)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/active">
-                            BỊ TỪ CHỐI (4)
-                        </a>
+                        <%- filterStatusHelper(linkPrefix, statusFilter, params.keyword) %>
                     </div>
                     <div class="col-sm-6">
-                        <form action="admin123/item/all" method="GET">
+                        <form action="<%= linkPrefix %>status/<%= params.currentStatus %>" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm..."
-                                    value="">
+                                <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm..."
+                                    value="<%= params.keyword %>">
                                 <input type="hidden" value="all">
 
                                 <span class="input-group-btn">
                                     <button class="btn btn-info" type="submit">Tìm kiếm</button>
                                 </span>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" type="button"><a href="admin123/group/all">Dọn
+                                    <button class="btn btn-success" type="button"><a href="<%= linkPrefix %>status/<%= params.currentStatus %>">Dọn
                                             dẹp</a></button>
                                 </span>
                             </div>
@@ -105,10 +85,10 @@
                                                 <a href=""><%= item.name %></a>
                                             </td>
                                             <td>
-                                                <img id="" src="#" alt="" />
+                                                <%- imageHelper(folderUpload, item.thumb, item.name) %>
                                             </td>
                                             <td>
-                                                <%- articleTypeHelper(linkPrefix, item.type, item.id, position) %>
+                                                <%- articleTypeHelper(linkPrefix, item.type, item.id) %>
                                             </td>
                                             <td>
                                                 <%- statusHelper(linkPrefix, item.status, item.id, collection, position) %>
@@ -117,17 +97,19 @@
                                                 <%= item.created.user_name %>
                                             </td>
                                             <td>
-                                                <%= item.expected_publish_time %>
+                                                <%= moment(item.expected_publish_time).format(systemConfig.format_long_time) %>
                                             </td>
                                             <td>
                                                 <%= item.refuse_reason %>
                                             </td>
                                             <td>
-                                                <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
-                                                    class="btn btn-warning btn-sm">Duyệt</a>
-                                                <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
-                                                    class="btn btn-danger btn-sm btn-warning">Từ
-                                                    chối</a>
+                                                <% if (item.status == 'Chưa được duyệt') { %>
+                                                    <a href="<%= linkPrefix %>browse/<%= item.id %>" type="button"
+                                                        class="btn btn-warning btn-sm">Duyệt</a>
+                                                    <a href="<%= linkPrefix %>refuse/<%= item.id %>" type="button"
+                                                        class="btn btn-danger btn-sm btn-warning">Từ
+                                                        chối</a>
+                                                <% } %>
                                             </td>
                                         </tr>
                                         <% });
@@ -143,8 +125,6 @@
     </div>
 
     <div class="col-lg-12">
-        
-            <%- paginationHelper(params.pagination, linkPrefix, params.currentStatus, params.keyword) %>
-        
+        <%- paginationHelper(params.pagination, linkPrefix, params.currentStatus, params.keyword) %>
     </div>
 </div>

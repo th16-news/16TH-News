@@ -7,7 +7,13 @@
                     var strWord = '';
                     switch(error.param) {
                         case 'name':
-                            strWord = 'Tiêu đề';
+                            if (pageTitle == 'Thêm mới chuyên mục') {
+                                strWord = 'Chuyên mục';
+                            } else if (pageTitle == 'Thêm mới tag') {
+                                strWord = 'Tag';
+                            } else {
+                                strWord = 'Tiêu đề';
+                            }
                             break;
                         case 'thumb':
                             strWord = 'Ảnh bìa';
@@ -23,6 +29,15 @@
                             break;
                         case 'content':
                             strWord = 'Nội dung';
+                            break;
+                        case 'expected_publish_time':
+                            strWord = 'Thời điểm xuất bản';
+                            break;
+                        case 'refuse_reason':
+                            strWord = 'Lý do từ chối';
+                            break;
+                        case 'status':
+                            strWord = 'Trạng thái';
                             break;
                         default:
                     } %>

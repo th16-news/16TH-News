@@ -10,6 +10,8 @@ const folderView = __path_views_backend + 'pages/administrator/users/';
 const systemConfig = require(__path_configs + 'system');
 const linkIndex = '/' + systemConfig.prefixAdministrator + '/users';
 
+let setting_time_publish = false;
+
 const moduleTitle = 'PHÂN HỆ QUẢN TRỊ VIÊN';
 const pageTitle = 'Danh sách người dùng';
 const pageTitleEdit = 'Sửa đổi người dùng';
@@ -42,7 +44,8 @@ router.get('(/status/:status)?', async (req, res, next) => {
             pageTitle,
             data,
             //statusFilter,
-            params
+            params,
+            setting_time_publish
         });
     });
 });
@@ -74,6 +77,7 @@ router.get('/form(/:id)?', async (req, res, next) => {
         moduleTitle,
         pageTitle: pageTitleEdit,
         /*errors,*/
+        setting_time_publish
     })
 });
 
@@ -99,7 +103,7 @@ router.post('/save', (req, res, next) => {
         if (taskCurrent == "edit") {
           user.avatar = user.image_old;
         }
-        res.render(`${folderView}form`, { pageTitle, user, errors, groupsUsers });
+        res.render(`${folderView}form`, { pageTitle, user, errors, groupsUsers, setting_time_publish });
       } else {
         let message = (taskCurrent == "add") ? notify.ADD_SUCCESS : notify.EDIT_SUCCESS;
         if (req.file == undefined) {
@@ -126,7 +130,7 @@ router.post('/save', (req, res, next) => {
 
 
     /*if (errors) {
-        res.render(`${folderView}form`, { pageTitle: pageTitleAdd, user, errors });
+        res.render(`${folderView}form`, { pageTitle: pageTitleAdd, user, errors, setting_time_publish });
     } else {*/
     //let message = notify.ADD_SUCCESS;
     UserModel.saveUser(user).then(() => {

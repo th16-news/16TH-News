@@ -4,6 +4,7 @@ var router = express.Router();
 const ParamsHelpers = require(__path_helpers + 'params');
 const FileHelpers = require(__path_helpers + 'files');
 const StringHelpers = require(__path_helpers + 'strings');
+const UtilsHelpers = require(__path_helpers + 'utils');
 const ArticleModel = require(__path_models + 'articles');
 const CategoryModel = require(__path_models + 'categories');
 const ValidateArticle = require(__path_validates + 'writer/articles');
@@ -15,6 +16,8 @@ const linkIndex = '/' + systemConfig.prefixWriter + '/articles';
 
 const uploadThumb = FileHelpers.upload('thumb', 'articles/');
 
+let setting_time_publish = false;
+
 const moduleTitle = 'PHÂN HỆ PHÓNG VIÊN';
 const pageTitle = 'Danh sách bài viết';
 const pageTitleAdd = 'Thêm mới bài viết';
@@ -24,11 +27,9 @@ router.get('(/status/:status)?', async (req, res, next) => {
   let params = {};
   params.keyword = ParamsHelpers.getParam(req.query, 'keyword', '');
   params.currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
-  //let statusFilter = await UtilsHelpers.createFilterStatus(params.currentStatus, 'article');
+  let statusFilter = await UtilsHelpers.createFilterStatus(params.currentStatus, 'articles');
   //params.sortField = ParamsHelpers.getParam(req.session, 'sort_field', 'name');
   //params.sortType = ParamsHelpers.getParam(req.session, 'sort_type', 'asc');
-
-  //params.categoryID = ParamsHelpers.getParam(req.session, 'category_id', '');
 
   params.pagination = {
     totalItems: 1,
@@ -48,8 +49,9 @@ router.get('(/status/:status)?', async (req, res, next) => {
       moduleTitle,
       pageTitle,
       data,
-      //statusFilter,
-      params
+      statusFilter,
+      params,
+      setting_time_publish
     });
   });
 });
@@ -60,16 +62,6 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 
   ArticleModel.changeStatus(id, currentStatus).then(() => {
     req.flash('success', notify.CHANGE_STATUS_SUCCESS);
-    res.redirect(linkIndex);
-  });
-});
-
-router.get('/change-article-type/:id/:article_type', (req, res, next) => {
-  let currentArticleType = ParamsHelpers.getParam(req.params, 'article_type', 'normal');
-  let id = ParamsHelpers.getParam(req.params, 'id', '');
-
-  ArticleModel.changeArticleType(id, currentArticleType).then(() => {
-    req.flash('success', notify.CHANGE_ARTICLE_TYPE_SUCCESS);
     res.redirect(linkIndex);
   });
 });
@@ -109,7 +101,8 @@ router.get('/form(/:id)?(/delete-tags/:items)?', async (req, res, next) => {
         article,
         items: '',// Tags bị xóa
         errors, 
-        listCategories
+        listCategories,
+        setting_time_publish
       });
     
   } else {
@@ -130,7 +123,8 @@ router.get('/form(/:id)?(/delete-tags/:items)?', async (req, res, next) => {
         article,
         items,// Tags bị xóa
         errors, 
-        listCategories
+        listCategories,
+        setting_time_publish
       });
     })
   }
@@ -148,7 +142,6 @@ router.post('/save', (req, res, next) => {
       id: article.category_id,
       name: article.category_name
     }
-    delete article['hidden-tags'];
 
     let taskCurrent = (typeof article !== undefined && article.id !== "") ? "edit" : "add";
 
@@ -173,7 +166,8 @@ router.post('/save', (req, res, next) => {
         article, 
         items: article.items, // Tags bị xóa
         errors, 
-        listCategories
+        listCategories,
+        setting_time_publish
       });
 
     } else {

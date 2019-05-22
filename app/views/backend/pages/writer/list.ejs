@@ -2,6 +2,7 @@
 <% include ./../../helpers/pagination %>
 <% include ./../../helpers/article-type %>
 <% include ./../../helpers/image %>
+<% include ./../../helpers/filter-status %>
 
 <% 
   const collection = 'articles';
@@ -17,7 +18,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 Tìm kiếm & Lọc
-                <a href="admin123/item">
+                <a href="<%= linkPrefix %>status/all">
                     <span id="icon-reload" class="glyphicon glyphicon-refresh"></span>
                 </a>
             </div>
@@ -25,40 +26,20 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="status-list col-sm-6 pl0">
-
-                        <a class="btn m-b-sm btn-success btn-sm" href="admin123/item/all">
-                            TẤT CẢ (4)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/inactive">
-                            ĐÃ XUẤT BẢN (0)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/active">
-                            ĐÃ ĐƯỢC DUYỆT (4)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/inactive">
-                            CHƯA ĐƯỢC DUYỆT (0)
-                        </a>
-
-                        <a class="btn m-b-sm btn-default btn-sm" href="admin123/item/active">
-                            BỊ TỪ CHỐI (4)
-                        </a>
-
+                        <%- filterStatusHelper(linkPrefix, statusFilter, params.keyword) %>
                     </div>
                     <div class="col-sm-5">
-                        <form action="admin123/item/all" method="GET">
+                        <form action="<%= linkPrefix %>status/<%= params.currentStatus %>" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm..."
-                                    value="">
+                                <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm..."
+                                    value="<%= params.keyword %>">
                                 <input type="hidden" value="all">
 
                                 <span class="input-group-btn">
                                     <button class="btn btn-info" type="submit">Tìm kiếm</button>
                                 </span>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" type="button"><a href="admin123/group/all">Dọn
+                                    <button class="btn btn-success" type="button"><a href="<%= linkPrefix %>status/<%= params.currentStatus %>">Dọn
                                             dẹp</a></button>
                                 </span>
                             </div>
@@ -115,7 +96,7 @@
                                         <%= item.category.name %>
                                     </td>
                                     <td>
-                                        <%- articleTypeHelper(linkPrefix, item.type, item.id, position) %>
+                                        <%- articleTypeHelper(linkPrefix, item.type, item.id) %>
                                     </td>
                                     <td>
                                         <%- statusHelper(linkPrefix, item.status, item.id, collection, position) %>
@@ -124,10 +105,12 @@
                                         <%= item.refuse_reason %>
                                     </td>
                                     <td>
-                                        <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
-                                            class="btn btn-warning btn-sm">Sửa</a>
-                                        <a href="<%= linkPrefix %>delete/<%= item.id %>" type="button"
-                                            class="btn btn-danger btn-sm btn-delete">Xóa</a>
+                                        <% if (item.status == 'Bị từ chối') { %>
+                                            <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
+                                                class="btn btn-warning btn-sm">Sửa</a>
+                                            <a href="<%= linkPrefix %>delete/<%= item.id %>" type="button"
+                                                class="btn btn-danger btn-sm btn-delete">Xóa</a>
+                                        <% } %>
                                     </td>
                                 </tr>
                                 <% });
