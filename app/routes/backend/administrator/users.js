@@ -4,7 +4,11 @@ var router = express.Router();
 
 
 const ParamsHelpers = require(__path_helpers + 'params');
+const UtilsHelpers = require(__path_helpers + 'utils');
 const UserModel = require(__path_models + 'users');
+const CategoryModel = require(__path_models + 'categories');
+const ValidateUser = require(__path_validates + 'administrator/users');
+const notify = require(__path_configs + 'notify');
 
 const folderView = __path_views_backend + 'pages/administrator/users/';
 const systemConfig = require(__path_configs + 'system');
@@ -17,127 +21,134 @@ const pageTitle = 'Danh sách người dùng';
 const pageTitleEdit = 'Sửa đổi người dùng';
 
 
-router.get('(/status/:status)?', async (req, res, next) => {
-    let params = {};
-    params.keyword = ParamsHelpers.getParam(req.query, 'keyword', '');
-    params.currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
-    //let statusFilter = await UtilsHelpers.createFilterStatus(params.currentStatus, 'users');
-    //params.sortField = ParamsHelpers.getParam(req.session, 'sort_field', 'name');
-    //params.sortType = ParamsHelpers.getParam(req.session, 'sort_type', 'asc');
+router.get('(/position/:position)?', async (req, res, next) => {
+  let params = {};
+  params.keyword = ParamsHelpers.getParam(req.query, 'keyword', '');
+  params.currentPosition = ParamsHelpers.getParam(req.params, 'position', 'all');
+  let statusFilter = await UtilsHelpers.createFilterStatus(params.currentPosition, 'users');
+  //params.sortField = ParamsHelpers.getParam(req.session, 'sort_field', 'name');
+  //params.sortType = ParamsHelpers.getParam(req.session, 'sort_type', 'asc');
 
-    //params.groupID = ParamsHelpers.getParam(req.session, 'group_id', '');
 
-    params.pagination = {
-        totalItems: 1,
-        totalItemsPerPage: 5,
-        currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
-        pageRanges: 5
-    }
+  params.pagination = {
+    totalItems: 1,
+    totalItemsPerPage: 5,
+    currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
+    pageRanges: 5
+  }
 
-    await UserModel.countUsers(params).then((data) => {
-        params.pagination.totalItems = data;
+  await UserModel.countUsers(params).then((data) => {
+    params.pagination.totalItems = data;
+  });
+
+  UserModel.listUsers(params).then((data) => {
+    res.render(`${folderView}list`, {
+      moduleTitle,
+      pageTitle,
+      data,
+      statusFilter,
+      params,
+      setting_time_publish
     });
-
-    UserModel.listUsers(params).then((data) => {
-        res.render(`${folderView}list`, {
-            moduleTitle,
-            pageTitle,
-            data,
-            //statusFilter,
-            params,
-            setting_time_publish
-        });
-    });
+  });
 });
 
 router.get('/change-status/:id/:status', (req, res, next) => {
-    let currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
-    let id = ParamsHelpers.getParam(req.params, 'id', '');
+  let currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
+  let id = ParamsHelpers.getParam(req.params, 'id', '');
 
-    UserModel.changeStatus(id, currentStatus).then(() => {
-        //req.flash('success', notify.CHANGE_STATUS_SUCCESS);
-        res.redirect(linkIndex);
-    });
+  UserModel.changeStatus(id, currentStatus).then(() => {
+    req.flash('success', notify.CHANGE_STATUS_SUCCESS);
+    res.redirect(linkIndex);
+  });
 });
 
 
 router.get('/delete/:id', (req, res, next) => {
-    let id = ParamsHelpers.getParam(req.params, 'id', '');
+  let id = ParamsHelpers.getParam(req.params, 'id', '');
 
-    UserModel.deleteUser(id).then(() => {
-        //req.flash('success', notify.DELETE_SUCCESS);
-        res.redirect(linkIndex);
-    });
+  UserModel.deleteUser(id).then(() => {
+    req.flash('success', notify.DELETE_SUCCESS);
+    res.redirect(linkIndex);
+  });
 });
 
 
 router.get('/form(/:id)?', async (req, res, next) => {
-    //let errors = null;
+  let id = ParamsHelpers.getParam(req.params, 'id', '');
+  let errors = null;
+
+
+  let listCategories = [];
+  await CategoryModel.listCategoriesInSelectbox().then((data) => {
+    listCategories = data;
+    listCategories.unshift({ _id: 'novalue', name: 'Chọn chuyên mục' });
+  })
+
+
+  UserModel.getUser(id).then((user) => {
+    if (user.category.id == undefined) {
+      user.category = {
+        id: '',
+        name: ''
+      }
+    }
+    user.status = (user.status == 'Hoạt động') ? 'active' : 'inactive';
     res.render(`${folderView}form`, {
-        moduleTitle,
-        pageTitle: pageTitleEdit,
-        /*errors,*/
-        setting_time_publish
-    })
+      moduleTitle,
+      pageTitle: pageTitleEdit,
+      user,
+      errors,
+      listCategories,
+      setting_time_publish
+    });
+  })
 });
 
-router.post('/save', (req, res, next) => {
-    /*uploadAvatar(req, res, async (errUpload) => {
-      req.body = JSON.parse(JSON.stringify(req.body));
-      let user = Object.assign(req.body);
-      let taskCurrent = (typeof user !== undefined && user.id !== "") ? "edit" : "add";
-   
-      let errors = ValidateUsers.validator(req, errUpload, taskCurrent);
-      
-      if (errors.length > 0) {
-        let pageTitle = (taskCurrent == "add") ? pageTitleAdd : pageTitleEdit;  
-        if (req.file != undefined) {
-          FileHelpers.remove('public/uploads/users/', req.file.filename);
+router.post('/save', async (req, res, next) => {
+  req.body = JSON.parse(JSON.stringify(req.body));
+  ValidateUser.validator(req);
+  let user = Object.assign(req.body);
+  let errors = req.validationErrors();
+
+  if (user.position != 'Biên tập viên') {
+    if (errors.length > 0) {
+      errors.forEach((error) => {
+        if (error.param == 'category_id') {
+          errors.pop();
         }
-        
-        let groupsUsers = [];
-        await GroupsModel.listGroupsInSelectbox().then((users) => {
-          groupsUsers = users;
-          groupsUsers.unshift({_id: 'novalue', name: 'Choose Group'});
-        });
-        if (taskCurrent == "edit") {
-          user.avatar = user.image_old;
-        }
-        res.render(`${folderView}form`, { pageTitle, user, errors, groupsUsers, setting_time_publish });
-      } else {
-        let message = (taskCurrent == "add") ? notify.ADD_SUCCESS : notify.EDIT_SUCCESS;
-        if (req.file == undefined) {
-          user.avatar = user.image_old;
-        } else {
-          user.avatar = req.file.filename;
-          if (taskCurrent == "edit") {
-            FileHelpers.remove('public/uploads/users/', user.image_old);
-          }
-        }
-        UsersModel.saveUser(user, req.user, { task: taskCurrent }).then((result) => {
-          req.flash('success', message);
-          res.redirect(linkIndex);
-        });
-      }
-    });*/
+      })
+    }
+    user.category_id = '';
+    user.category_name = '';
+  }
+  
+  user.category = {
+    id: user.category_id,
+    name: user.category_name
+  }
 
+  if (errors.length > 0) {
+    let listCategories = [];
+    await CategoryModel.listCategoriesInSelectbox().then((data) => {
+      listCategories = data;
+      listCategories.unshift({ _id: 'novalue', name: 'Chọn chuyên mục' });
+    })
 
-
-    req.body = JSON.parse(JSON.stringify(req.body));
-    //ValidateCategory.validator(req);
-    let user = Object.assign(req.body);
-    //let errors = req.validationErrors();
-
-
-    /*if (errors) {
-        res.render(`${folderView}form`, { pageTitle: pageTitleAdd, user, errors, setting_time_publish });
-    } else {*/
-    //let message = notify.ADD_SUCCESS;
-    UserModel.saveUser(user).then(() => {
-        //req.flash('success', message);
-        res.redirect(linkIndex);
+    res.render(`${folderView}form`, { 
+      moduleTitle,
+      pageTitle: pageTitleEdit, 
+      user, 
+      errors, 
+      listCategories,
+      setting_time_publish 
     });
-    //}
+  } else {
+    UserModel.saveUser(user, { task: 'edit' }).then(() => {
+      req.flash('success', notify.EDIT_SUCCESS);
+      res.redirect(linkIndex);
+    });
+  }
 });
 
 module.exports = router;

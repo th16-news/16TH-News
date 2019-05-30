@@ -1,5 +1,5 @@
 <%
-    paginationHelper = (paginationObj, linkPrefix, currentStatus, keyword) => {
+    paginationHelper = (paginationObj, linkPrefix, currentStatus = null, keyword, currentPosition = null) => {
         
         let totalItems = paginationObj.totalItems;
         let totalItemsPerPage = paginationObj.totalItemsPerPage;
@@ -14,7 +14,13 @@
 
         if (totalPages > 1) {
             let xhtmlStart = '', xhtmlPrevious = '', xhtmlPages = '', xhtmlNext = '', xhtmlEnd = '';
-            let link = linkPrefix + 'status/' + currentStatus;
+            let link = '';
+            if (currentPosition != null) {
+                link = linkPrefix + 'position/' + currentPosition;
+            } else {
+                link = linkPrefix + 'status/' + currentStatus;
+            }
+        
             if (keyword !== '') {
                 link += '?keyword=' + keyword + '&page=';
             } else {

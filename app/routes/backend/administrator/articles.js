@@ -35,7 +35,6 @@ router.get('(/status/:status)?', async (req, res, next) => {
         params.pagination.totalItems = number;
     });
 
-
     ArticleModel.listArticles(params, 'Quản trị viên').then((data) => {
         res.render(`${folderView}list`, {
             moduleTitle,

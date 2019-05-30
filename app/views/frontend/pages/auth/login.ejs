@@ -1,0 +1,50 @@
+<%
+    const linkPrefix = systemConfig.prefixFrontend + `/auth/`;
+%>
+
+
+<div class="login-form">
+    <form action="<%= linkPrefix %>login" method="post">
+        <div class="avatar">
+            <i class="fas fa-user avatar-icon"></i>
+        </div>
+        <h2 class="text-center">Login</h2>
+        <% include ./../../elements/errors-login %>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+        </div>
+        <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <a href="<%= linkPrefix %>forget-password" class="pull-right">Forgot Password?</a>
+        </div>
+        <div class="or-seperator">
+            <b>or</b>
+        </div>
+        <div class="form-group">
+            <p class="text-muted text-center">Sign in with your social media account</p>
+            <a href="#" class="btn btn-primary btn-lg facebook-button text-decoration-none"><i
+                    class="fab fa-facebook"></i> Facebook</a>
+        </div>
+    </form>
+    <p class="text-center small">Don't have an account? <a href="<%= linkPrefix %>register">Sign up here!</a></p>
+</div>

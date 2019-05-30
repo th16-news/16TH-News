@@ -26,7 +26,36 @@ let translate = (str) => {
     return result;
 }
 
+let translate_position = (str) => {
+    let result = '';
+    switch(str) {
+        case 'subscriber':
+            result = 'Đọc giả';
+            break;
+        case 'writer':
+            result = 'Phóng viên';
+            break;
+        case 'editor':
+            result = 'Biên tập viên';
+            break;
+        case 'administrator':
+            result = 'Quản trị viên';
+            break;
+        default:
+    }
+    return result;
+}
+
+let formatLink = (value) => {
+    if (value[1]=="/") {
+        value = value.substr(1);
+    }
+    return value;
+}
+
 module.exports = {
     concatTag,
-    translate
+    translate,
+    translate_position,
+    formatLink
 }

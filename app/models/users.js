@@ -1,29 +1,48 @@
 const ParamsHelpers = require(__path_helpers + 'params');
+const StringsHelpers = require(__path_helpers + 'strings');
 const UserModel = require(__path_schemas + 'users');
+
 
 module.exports = {
     listUsers: (params) => {
         let objWhere = {};
-        //if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         //let sort = {};
         //sort[params.sortField] = params.sortType;
-        //if (params.categoryID !== 'allvalue' && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
-        if (params.currentStatus !== 'all') objWhere.status = params.currentStatus;
-        //if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
+        if (params.currentPosition !== 'all') objWhere.position = StringsHelpers.translate_position(params.currentPosition);
+        if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel
                 .find(objWhere)
-                .select('name avatar status position category.name alias email dob renewal_date')
+                .select('name avatar status position category.name alias email dob renewal_date username')
                 //.sort(sort)
                 .skip((params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage))
                 .limit(params.pagination.totalItemsPerPage);
     },
 
+    getUser: (id) => {
+        return UserModel.findById(id);
+    },
+
     countUsers: (params) => {
         let objWhere = {};
-        //if (params.categoryID !== 'allvalue' && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
-        if (params.currentStatus !== 'all') objWhere.status = params.currentStatus;
-        //if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
+        if (params.currentPosition !== 'all') objWhere.position = StringsHelpers.translate_position(params.currentPosition);
+        if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel.countDocuments(objWhere);
+    },
+
+    countUsersRegister: (input, option) => {
+        if (option == 'username') {
+            return UserModel.countDocuments({ username: input.username});
+        } else if (option == 'email') {
+            return UserModel.countDocuments({ email: input.email});
+        } else if (option == 'password') {
+            return UserModel.countDocuments({ password: input.password});
+        }
+    },
+
+    getUserByUsername: (username) => {
+       return UserModel
+       .find({ status: 'Hoạt động', username: username })
+        .select('username email password')
     },
 
     changeStatus: (id, currentStatus) => {
@@ -41,19 +60,18 @@ module.exports = {
         return UserModel.deleteOne({_id: id});
     },
 
-    saveUser: (user, _user) => {
-        
-            user.created = {
-                user_id: 0,
-                user_name: 'admin',
-                time: Date.now()
-            }
-            user.group = {
-                id: user.group_id,
-                name: user.group_name
-            }
-            return new UsersModel(user).save();
-        
-        
+    saveUser: (user, options = null) => {
+        if (options.task == "add") {
+            user.status = 'Hoạt động';
+            user.position = 'Đọc giả';
+            return new UserModel(user).save();
+        }
+        if (options.task == "edit") {
+            return UserModel.updateOne({_id: user.id}, {
+                position: user.position,
+                status: (user.status == 'active') ? 'Hoạt động' : 'Không hoạt động',
+                category: user.category
+            });
+        }
     }
 }

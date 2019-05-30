@@ -32,7 +32,7 @@ module.exports = {
         if (params.category != undefined) objWhere.category = params.category;
         if (params.currentStatus !== 'all') objWhere.status = StringHelpers.translate(params.currentStatus);
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
-        if (options == 'Quản trị viên') {
+        if (options == 'Quản trị viên' && params.currentStatus == 'all') {
             objWhere.status = { $in: ['Đã được duyệt', 'Đã xuất bản'] };
         }
         return ArticleModel.countDocuments(objWhere);

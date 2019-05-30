@@ -1,3 +1,11 @@
+<% include ./../../../helpers/select-box %>
+
+
+<% 
+  const collection = 'users';
+  const linkPrefix = systemConfig.prefixAdministrator + `/${collection}/`;
+%>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -5,53 +13,57 @@
                 Biểu mẫu
             </div>
             <div class="panel-body">
+                <% include ./../../../elements/errors %>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="alert alert-danger" role="alert">
-                            <ul>
-                                <li>Tên người dùng: không được rỗng</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <form role="form" action="" method="POST">
+                        <form role="form" action="<%= linkPrefix %>save/" method="POST">
                             <div class="form-group">
                                 <label>Chức vụ</label>
-                                <select name="category" class="form-control">
-                                    <option value="novalue">Chọn chức vụ</option>
-                                    <option value="subscriber">Đọc giả</option>
-                                    <option value="writer">Phóng viên</option>
-                                    <option value="editor">Biên tập viên</option>
-                                    <option value="administrator">Quản trị viên</option>
+                                <select name="position" class="form-control">
+                                    <option value="novalue"
+                                        <%- (user.position == 'novalue') ? 'selected="selected"' : '' %>>Chọn chức vụ
+                                    </option>
+                                    <option value="Đọc giả"
+                                        <%- (user.position == 'Đọc giả') ? 'selected="selected"' : '' %>>Đọc giả
+                                    </option>
+                                    <option value="Phóng viên"
+                                        <%- (user.position == 'Phóng viên') ? 'selected="selected"' : '' %>>Phóng viên
+                                    </option>
+                                    <option value="Biên tập viên"
+                                        <%- (user.position == 'Biên tập viên') ? 'selected="selected"' : '' %>>Biên tập viên
+                                    </option>
+                                    <option value="Quản trị viên"
+                                        <%- (user.position == 'Quản trị viên') ? 'selected="selected"' : '' %>>Quản trị viên
+                                    </option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Trạng thái</label>
                                 <select name="status" class="form-control">
-                                    <option value="novalue">Chọn trạng thái</option>
-                                    <option value="active">
-                                        Hoạt động</option>
-                                    <option value="inactive">
-                                        Không hoạt động</option>
+                                    <option value="novalue"
+                                        <%- (user.status == 'novalue') ? 'selected="selected"' : '' %>>Chọn trạng thái
+                                    </option>
+                                    <option value="active"
+                                        <%- (user.status == 'active') ? 'selected="selected"' : '' %>>Hoạt động
+                                    </option>
+                                    <option value="inactive"
+                                        <%- (user.status == 'inactive') ? 'selected="selected"' : '' %>> Không hoạt động
+                                    </option>
                                 </select>
                             </div>
 
+        
                             <div class="form-group">
-                                <label>Chuyên mục</label>
-                                <select name="category" class="form-control">
-                                    <option value="novalue">Chọn chuyên mục</option>
-
-                                </select>
+                                <label>Chuyên mục (nếu là Biên tập viên)</label>
+                                <%- selectBoxHelper('category_id', listCategories, user.category.id) %>
                             </div>
-
-
-
-                            <input class="form-control" name="id" value="" type="hidden">
+                            
+                            
+                            <input class="form-control" name="id" value="<%= user.id %>" type="hidden">
+                            <input class="form-control" name="category_name" value="<%= user.category.name %>" type="hidden">
                             <button type="submit" class="btn btn-primary">Hoàn tất </button>
-                            <a type="button" href="admin123/item/" class="btn btn-default">Hủy bỏ</a>
+                            <a type="button" href="<%= linkPrefix %>" class="btn btn-default">Hủy bỏ</a>
                         </form>
                     </div>
                 </div>

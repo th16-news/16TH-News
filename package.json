@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/th16-news/16TH-News#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
@@ -30,6 +31,8 @@
     "mongoose": "^5.5.6",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "randomstring": "^1.1.5"
   }
 }

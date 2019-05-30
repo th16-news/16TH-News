@@ -1,0 +1,61 @@
+<%
+    const linkPrefix = systemConfig.prefixFrontend + `/auth/`;
+%>
+
+<div class="signup-form">
+    <form action="<%= linkPrefix %>register" method="post">
+        <h2>Create an Account</h2>
+        <p class="hint-text">Sign up with your social media account</p>
+        <div class="social-btn">
+            <a href="#" class="btn btn-primary btn-lg" style="width:100%"><i class="fab fa-facebook"></i>Facebook</a>
+        </div>
+        <div class="or-seperator"><b>or</b></div>
+        <% include ./../../elements/errors %>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        @
+                    </div>
+                </div>
+                <input type="email" class="form-control input-lg" name="email" placeholder="Email Address"
+                    required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <input type="password" class="form-control input-lg" name="confirm_password"
+                    placeholder="Confirm Password" required="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sign Up</button>
+        </div>
+    </form>
+    <div class="text-center support-text">Already have an account? <a href="#"><b>Login here</b></a></div>
+</div>
