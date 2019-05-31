@@ -3,7 +3,7 @@ const notify = require(__path_configs + 'notify');
 const bcrypt = require('bcrypt');
 var LocalStrategy = require('passport-local').Strategy;
 
-module.exports = function (passport) {
+module.exports = (passport) => {
   passport.use(new LocalStrategy(
     (username, password, done) => {
       UserModel.getUserByUsername(username).then((users) => {
@@ -13,7 +13,7 @@ module.exports = function (passport) {
         } else {
           bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(password, salt, function (err, hash) {
-              bcrypt.compare(password, hash, function (err, res) {
+              bcrypt.compare(password, user.password, function (err, res) {
                   if (res) {
                     return done(null, user);
                   } else {

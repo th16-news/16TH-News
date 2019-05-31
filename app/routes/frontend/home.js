@@ -3,10 +3,12 @@ var router = express.Router();
 
 //const ArticleModel = require(__path_models + 'articles');
 
-//const folderView = __path_views_blog + 'pages/home/';
-//const layoutBlog = __path_views_blog + 'frontend';
+const folderView = __path_views_frontend + 'pages/home/';
+const layoutFrontend = __path_views_frontend + 'frontend';
 
-router.get('/', async (req, res, next) => {
+const pageTitle = 'home';
+
+router.get('/', /*async */(req, res, next) => {
   /*let articleSpecial = [];
   let articleNews = [];
   await ArticleModel.listArticleFrontend(null, {task: 'article-special'}).then((article) => {
@@ -23,7 +25,7 @@ router.get('/', async (req, res, next) => {
     articleSpecial,
     articleNews
   });*/
-  res.end('ahihi');
+  res.render(`${folderView}index`, { layout: layoutFrontend, errors: null, pageTitle });
 });
 
 module.exports = router;

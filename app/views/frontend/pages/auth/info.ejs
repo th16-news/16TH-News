@@ -1,70 +1,87 @@
+<% include ./../../helpers/image %>
+<%
+    const linkPrefix = systemConfig.prefixFrontend + `/auth/`;
+    const folderUpload = 'uploads/users/';
+%>
+
+<link rel="stylesheet" href="frontend/css/signup_style.css">
+
 <div class="signup-form">
-        <form action="#" method="post">
-            <h2>Your Information</h2>
-            <p class="hint-text">Edit your info</p>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            Tên đăng nhập
-                        </div>
+    <form action="<%= linkPrefix %>info" enctype="multipart/form-data" method="post">
+        <h2>Your Information</h2>
+        <p class="hint-text">Edit your info</p>
+        <% include ./../../elements/errors %>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Tên đăng nhập
                     </div>
-                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
                 </div>
+                <input type="text" class="form-control" name="username" placeholder="Username" value="<%= user.username %>" required="required">
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            Ảnh đại diện
-                        </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Ảnh đại diện
                     </div>
-                    <input type="file" class="form-control" name="file" placeholder="Avatar" required="required">
                 </div>
+                <input type="file" class="form-control" name="avatar" placeholder="Avatar">
             </div>
+        </div>
+        <% if (user.id !== undefined && user.id !== '') { %>
             <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            Họ tên
-                        </div>
+              <label></label>
+              <%- imageHelper(folderUpload, user.avatar, user.name, 'img-avatar-form') %>
+            </div>
+        <% } %>
+            
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Họ tên
                     </div>
-                    <input type="text" class="form-control" name="name" placeholder="Name" required="required">
                 </div>
+                <input type="text" class="form-control" name="name" placeholder="Name" value="<%= user.name %>">
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            Bút danh
-                        </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Bút danh
                     </div>
-                    <input type="text" class="form-control" name="alias" placeholder="Alias" required="required">
                 </div>
+                <input type="text" class="form-control" name="alias" placeholder="Alias" value="<%= user.alias %>">
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            Email
-                        </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Email
                     </div>
-                    <input type="email" class="form-control input-lg" name="email" placeholder="Email Address"
-                        required="required">
                 </div>
+                <input type="email" class="form-control input-lg" name="email" placeholder="Email Address" value="<%= user.email %>" required="required">
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            Ngày sinh
-                        </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Ngày sinh
                     </div>
-                    <input type="date" class="form-control" name="dob" placeholder="Ngày sinh" required="required">
                 </div>
+                <input type="date" class="form-control" name="dob" placeholder="Ngày sinh" value="<%= date %>">
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sửa đổi</button>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <input name="image_old" value="<%= user.avatar %>" type="hidden"/>
+            <input class="form-control" name="date" value="<%= user.dob %>" type="hidden">
+            <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sửa đổi</button>
+        </div>
+    </form>
+</div>

@@ -2,9 +2,58 @@
 <% include ./../../../helpers/position %>
 <% include ./../../../helpers/pagination %>
 <% include ./../../../helpers/filter-status %>
+<% include ./../../../helpers/image %>
 <%
+    function getDate(str) {
+        let year = str.substr(11, 4);
+        let month = '';
+        switch (str.substr(4, 3)) {
+            case 'Jan': 
+                month = '01';
+                break;
+            case 'Feb': 
+                month = '02';
+                break;
+            case 'Mar': 
+                month = '03';
+                break;
+            case 'Apr': 
+                month = '04';
+                break;
+            case 'May': 
+                month = '05';
+                break;
+            case 'Jun': 
+                month = '06';
+                break;
+            case 'Jul': 
+                month = '07';
+                break;
+            case 'Aug': 
+                month = '08';
+                break;
+            case 'Sep': 
+                month = '09';
+                break;
+            case 'Oct': 
+                month = '10';
+                break;
+            case 'Nov': 
+                month = '11';
+                break;
+            case 'Dec': 
+                month = '12';
+                break;
+            default:
+        }
+        let day = str.substr(8, 2);
+        let date = day + "-" + month + "-" + year;
+        return date;
+    }
+
     const collection = 'users';
     const linkPrefix = systemConfig.prefixAdministrator + `/${collection}/`;
+    const folderUpload = 'uploads/users/';
 %>
 
 <% include ./../../../elements/notify %>
@@ -87,7 +136,7 @@
                                         <%= item.name %>
                                     </td>
                                     <td>
-                                        <img id="" src="#" alt="" />
+                                        <%- imageHelper(folderUpload, item.avatar, item.name) %>
                                     </td>
                                     <td>
                                         <%- statusHelper(linkPrefix, item.status, item.id, collection) %>
@@ -98,7 +147,13 @@
                                     <td><%= item.category.name %></td>
                                     <td><%= item.alias %></td>
                                     <td><%= item.email %></td>
-                                    <td><%= item.dob %></td>
+
+                                    <% if (item.dob == undefined || item.dob == null) { %>
+                                        <td></td>
+                                    <% } else { %>
+                                        <td><%= getDate(item.dob.toString()) %></td>
+                                    <% } %>
+                                    
                                     <td><%= item.renewal_date %></td>
                                     <td>
                                         <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"

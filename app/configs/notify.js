@@ -16,7 +16,10 @@ module.exports = {
     REFUSE_SUCCESS: 'Từ chối bài viết thành công!',
     ERROR_LOGIN: 'Thông tin đăng nhập không chính xác!',
     ERROR_REGISTER: 'Tên đăng nhập hoặc email hoặc mật khẩu đã tồn tại!',
-    ERROR_CONFIRM_PASSWORD: 'Mật khẩu và Xác nhận mật khẩu phải giống nhau!'
+    ERROR_CONFIRM_PASSWORD: 'Mật khẩu và Xác nhận mật khẩu phải giống nhau!',
+    ERROR_CONFIRM_NEW_PASSWORD: 'Mật khẩu mới và Xác nhận mật khẩu mới phải giống nhau!',
+    ERROR_FORGET_PASSWORD: 'Thông tin nhập vào không chính xác!',
+    ERROR_INFO: 'Tên đăng nhập hoặc email đã tồn tại!'
 
     /*
     ERROR_LOGIN_USERNAME_NOTEXIST: 'Không tồn tại user!',

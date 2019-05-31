@@ -1,5 +1,5 @@
 const ParamsHelpers = require(__path_helpers + 'params');
-const StringsHelpers = require(__path_helpers + 'strings');
+const StringHelpers = require(__path_helpers + 'strings');
 const UserModel = require(__path_schemas + 'users');
 
 
@@ -8,7 +8,7 @@ module.exports = {
         let objWhere = {};
         //let sort = {};
         //sort[params.sortField] = params.sortType;
-        if (params.currentPosition !== 'all') objWhere.position = StringsHelpers.translate_position(params.currentPosition);
+        if (params.currentPosition !== 'all') objWhere.position = StringHelpers.translate_position(params.currentPosition);
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel
                 .find(objWhere)
@@ -24,7 +24,7 @@ module.exports = {
 
     countUsers: (params) => {
         let objWhere = {};
-        if (params.currentPosition !== 'all') objWhere.position = StringsHelpers.translate_position(params.currentPosition);
+        if (params.currentPosition !== 'all') objWhere.position = StringHelpers.translate_position(params.currentPosition);
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel.countDocuments(objWhere);
     },
@@ -44,6 +44,12 @@ module.exports = {
        .find({ status: 'Hoạt động', username: username })
         .select('username email password')
     },
+
+    getUserByUsernameForgetPassword: (username) => {
+        return UserModel
+        .find({ username: username })
+         .select('username email password')
+     },
 
     changeStatus: (id, currentStatus) => {
         let status = (currentStatus === "active") ? "Không hoạt động" : "Hoạt động";
@@ -71,6 +77,22 @@ module.exports = {
                 position: user.position,
                 status: (user.status == 'active') ? 'Hoạt động' : 'Không hoạt động',
                 category: user.category
+            });
+        }
+        /*if (options.task == "edit-password") {
+            console.log(user.password);
+            return UserModel.updateOne({_id: user.id}, {
+                password: user.password
+            });
+        }*/
+        if (options.task == "edit-info") {
+            return UserModel.updateOne({_id: user.id}, {
+                username: user.username,
+                avatar: user.avatar,
+                name: user.name,
+                alias: user.alias,
+                email: user.email,
+                dob: user.dob
             });
         }
     }

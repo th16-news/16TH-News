@@ -1,3 +1,7 @@
+<%
+    const linkPrefix = systemConfig.prefixFrontend + `/auth/`;
+%>
+
 <nav class="navbar navbar-expand-md navbar-dark mynav sticky-top">
     <a class="navbar-brand ml-lg-4" href="#"><img src="frontend/img/logo.jpg" alt="logo"></a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
@@ -50,15 +54,24 @@
                 <a class="align-center nav-link search-toggle" onclick="showSearchBar()"><i
                         class="fas fa-search"></i></a>
             </li>
-            <li class="nav-item mr-lg-2 d-flex align-items-center dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" title="Tài khoản"><i
-                        class="fas fa-user-circle mr-2"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Xem thông tin</a>
-                    <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                    <a class="dropdown-item" href="#">Đăng xuất</a>
-                </div>
-            </li>
+
+            <% if (pageTitle == 'login' || pageTitle == 'register' || pageTitle == 'forget-password') { %>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a href="#" class="nav-link" title="Đăng nhập"><i class="fas fa-sign-in-alt mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng nhập</span></a>    
+                </li>
+                <li class="nav-item mr-lg-2 d-flex align-items-center">
+                    <a href="#" class="nav-link" title="Đăng kí"><i class="fas fa-user-edit mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng kí</span></a>
+                </li>
+            <% } else { %>
+                <li class="nav-item mr-lg-2 d-flex align-items-center dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" title="Tài khoản"><i
+                            class="fas fa-user-circle mr-2"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="<%= linkPrefix %>info">Xem thông tin</a>
+                        <a class="dropdown-item" href="<%= linkPrefix %>logout">Đăng xuất</a>
+                    </div>
+                </li>
+            <% } %> 
         </ul>
     </div>
 
