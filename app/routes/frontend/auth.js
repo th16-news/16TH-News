@@ -210,8 +210,12 @@ router.post('/forget-password', (req, res, next) => {
 });
 
 
-/*router.get('/no-permission', middleGetUserInfo, middleGetCategoryForMenu, middleArticleRandom, function(req, res, next) {
-  res.render(`${folderView}no-permission`, { layout: layoutFrontend, top_post: false, pageTitle: 'login' });
-});*/
+router.get('/no-permission', /*middleGetUserInfo, middleGetCategoryForMenu, middleArticleRandom,*/ function(req, res, next) {
+  res.render(`${folderView}no-permission`, { 
+      layout: layoutFrontend, 
+      /*top_post: false,*/ 
+      pageTitle: 'ERROR PAGE' 
+    });
+});
 
 module.exports = router;

@@ -100,10 +100,28 @@ let getDate = (str) => {
     return date;
 }
 
+let createSlug = (value) => {
+    var str = value;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ấ|ầ|ẩ|ẫ|ậ|ă|ắ|ằ|ẳ|ẵ|ặ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ế|ề|ể|ễ|ệ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ứ|ừ|ử|ữ|ự/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+    str = str.replace(/ *? /g, "-");
+    str = str.trim();
+    return str;
+}
+
+
 module.exports = {
     concatTag,
     translate,
     translate_position,
     formatLink,
-    getDate
+    getDate,
+    createSlug
 }

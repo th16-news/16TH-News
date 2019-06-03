@@ -16,20 +16,27 @@ var schema = new mongoose.Schema({
     refuse_reason: String,
     expected_publish_time: Date,
     created: {
-        user_id: Number,
+        user_id: String,
         user_name: String,
         time: Date
     },
     browsed: {
-        user_id: Number,
+        user_id: String,
         user_name: String,
         time: Date
     },
     published: {
-        user_id: Number,
+        user_id: String,
         user_name: String,
         time: Date
-    }
+    },
+    comment: [{
+        user_avatar: String,
+        user_id: String,
+        user_name: String,
+        content: String,
+        time: Date
+    }]
 });
 
 module.exports = mongoose.model(clusterConfig.collection_articles, schema);

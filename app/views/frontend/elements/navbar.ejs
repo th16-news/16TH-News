@@ -2,6 +2,7 @@
     const linkPrefix = systemConfig.prefixFrontend + `/auth/`;
 %>
 
+<% if (pageTitle != 'ERROR PAGE') { %>
 <nav class="navbar navbar-expand-md navbar-dark mynav sticky-top">
     <a class="navbar-brand ml-lg-4" href="#"><img src="frontend/img/logo.jpg" alt="logo"></a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
@@ -11,43 +12,47 @@
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item dropdown active mr-lg-2">
+                <a class="nav-link" href="/" aria-haspopup="true"
+                    aria-expanded="false">Home</a>
+            </li>
+            <li class="nav-item dropdown mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Mobile</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Điện thoại</a>
-                    <a class="dropdown-item" href="#">Máy tính bảng</a>
+                    <a class="dropdown-item" href="/categories/dien-thoai">Điện thoại</a>
+                    <a class="dropdown-item" href="/categories/may-tinh-bang">Máy tính bảng</a>
                 </div>
             </li>
             <li class="nav-item dropdown mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Internet</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Digital marketting</a>
-                    <a class="dropdown-item" href="#">Media</a>
+                    <a class="dropdown-item" href="/categories/digital-marketting">Digital marketting</a>
+                    <a class="dropdown-item" href="/categories/media">Media</a>
                 </div>
             </li>
             <li class="nav-item dropdown mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Khám phá</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Lịch sử</a>
-                    <a class="dropdown-item" href="#">Tri thức</a>
+                    <a class="dropdown-item" href="/categories/lich-su">Lịch sử</a>
+                    <a class="dropdown-item" href="/categories/tri-thuc">Tri thức</a>
                 </div>
             </li>
             <li class="nav-item dropdown mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Trà đá công nghệ</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Tản mạn</a>
-                    <a class="dropdown-item" href="#">Ý tưởng sáng tạo</a>
+                    <a class="dropdown-item" href="/categories/tan-man">Tản mạn</a>
+                    <a class="dropdown-item" href="/categories/y-tuong-sang-tao">Ý tưởng sáng tạo</a>
                 </div>
             </li>
             <li class="nav-item dropdown mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">Thủ thuật</a>
+                    aria-expanded="false">Khác</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Máy tính</a>
-                    <a class="dropdown-item" href="#">Điện thoại</a>
+                    <a class="dropdown-item" href="/categories/song">Sống</a>
+                    <a class="dropdown-item" href="/categories/thu-thuat">Thủ thuật</a>
                 </div>
             </li>
             <li class="nav-item mr-lg-2 d-flex align-items-center">
@@ -55,12 +60,12 @@
                         class="fas fa-search"></i></a>
             </li>
 
-            <% if (pageTitle == 'login' || pageTitle == 'register' || pageTitle == 'forget-password') { %>
+            <% if (Object.keys(userInfo).length == 0) { %>
                 <li class="nav-item mr-lg-2 d-flex align-items-center">
-                    <a href="#" class="nav-link" title="Đăng nhập"><i class="fas fa-sign-in-alt mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng nhập</span></a>    
+                    <a href="/auth/login" class="nav-link" title="Đăng nhập"><i class="fas fa-sign-in-alt mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng nhập</span></a>    
                 </li>
                 <li class="nav-item mr-lg-2 d-flex align-items-center">
-                    <a href="#" class="nav-link" title="Đăng kí"><i class="fas fa-user-edit mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng kí</span></a>
+                    <a href="/auth/register" class="nav-link" title="Đăng kí"><i class="fas fa-user-edit mr-2"></i><span class="d-inline d-sm-inline d-md-none d-lg-none d-xl-inline">Đăng kí</span></a>
                 </li>
             <% } else { %>
                 <li class="nav-item mr-lg-2 d-flex align-items-center dropdown">
@@ -68,6 +73,13 @@
                             class="fas fa-user-circle mr-2"></i></a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="<%= linkPrefix %>info">Xem thông tin</a>
+                        <% if (userInfo.position == 'Phóng viên') { %>
+                            <a class="dropdown-item" href="/writer">Quản lý</a>
+                        <% } if (userInfo.position == 'Biên tập viên') { %>
+                            <a class="dropdown-item" href="/editor">Quản lý</a>
+                        <% } if (userInfo.position == 'Quản trị viên') { %>
+                            <a class="dropdown-item" href="/administrator">Quản lý</a>
+                        <% } %>
                         <a class="dropdown-item" href="<%= linkPrefix %>logout">Đăng xuất</a>
                     </div>
                 </li>
@@ -87,3 +99,5 @@
         </div>
     </div>
 </div>
+
+<% } %>

@@ -1,18 +1,14 @@
 const CategoryModel = require(__path_schemas + 'categories');
 
 module.exports = {
-    listCategories: (params, options = null) => {
+    listCategories: () => {
         let objWhere = {};
-        //if (params.currentStatus !== 'all') objWhere.status = params.currentStatus;
-        
-        
-        //if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         //let sort = {};
         //sort[params.sortField] = params.sortType;
       
         return CategoryModel
                 .find(objWhere)
-                .select('name status')
+                .select('id name status')
                 //.sort(sort)
     },
 

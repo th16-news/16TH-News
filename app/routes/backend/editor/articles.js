@@ -18,14 +18,12 @@ const moduleTitle = 'PHÂN HỆ BIÊN TẬP VIÊN';
 const pageTitle = 'Danh sách bài viết';
 const pageTitleBrowse = 'Duyệt bài viết';
 const pageTitleRefuse = 'Từ chối bài viết';
-const category_name = 'B';
-const category_id = "5cd8a348011f3163d86df5d0";
 
 router.get('(/status/:status)?', async (req, res, next) => {
     let params = {};
     params.category = {
-      id: category_id,
-      name: category_name
+      id: req.user.category.id,
+      name: req.user.category.name
     }
     params.keyword = ParamsHelpers.getParam(req.query, 'keyword', '');
     params.currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');

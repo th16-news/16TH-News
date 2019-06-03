@@ -21,7 +21,7 @@ module.exports = {
 
         return ArticleModel
                 .find(objWhere)
-                .select('name thumb category.name type status expected_publish_time refuse_reason')
+                .select('name thumb category.name type status created.user_name browsed.user_name expected_publish_time refuse_reason tags')
                 //.sort(sort)
                 .skip((params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage))
                 .limit(params.pagination.totalItemsPerPage);
@@ -38,15 +38,73 @@ module.exports = {
         return ArticleModel.countDocuments(objWhere);
     },
 
+    listArticlesFrontend: (params = null, options = null) => {
+        if (options.task == 'article-new') {
+            return ArticleModel.find({status: 'Đã xuất bản'})
+                        .select('name created.user_name published.time category.id category.name thumb tags summary content comment')
+                        .limit(10)
+                        .sort({'published.time': 'desc'});
+        }
+        
+        if (options.task == 'article-in-category') {
+            return ArticleModel.find({status: 'Đã xuất bản', 'category.id': params.id})
+                        .select('name created.user_name published.time category.id category.name thumb tags summary content comment')
+                        .limit(10)
+                        .sort({'published.time': 'desc'});
+        }
+
+        if (options.task == 'article-in-tag') {
+            return ArticleModel.find({status: 'Đã xuất bản', tags: params.name})
+                        .select('name created.user_name published.time category.id category.name thumb tags summary content comment')
+                        .limit(10)
+                        .sort({'published.time': 'desc'});
+        }
+
+        if (options.task == 'article') {
+            return ArticleModel.find({status: 'Đã xuất bản'})
+                        .select('name created.user_name published.time category.id category.name thumb tags summary content comment');
+        }
+
+        if (options.task == 'article-detail') {
+            return ArticleModel.find({status: 'Đã xuất bản', _id: params.id })
+                        .select('name created.user_name published.time category.id category.name thumb tags summary content comment')
+                        .limit(1);
+        }
+
+        if (options.task == 'article-random-in-category') {
+            return ArticleModel.aggregate([
+                { $match: { status: 'Đã xuất bản', 'category.id': params.id}},
+                { $project: { name: 1, 'created.user_name': 1, 'published.time': 1, 'category.id': 1, 'category.name': 1, thumb: 1, tags: 1, summary: 1, content: 1, comment: 1}},
+                { $sample: {size: 5}}
+            ]);
+        }
+    },
+
     getArticle: (id) => {
         return ArticleModel.findById(id);
     },
 
-    changeStatus: (id, currentStatus) => {
+    changeStatus: (id, user, currentStatus) => {
         let status = (currentStatus === "browsed") ? "Đã xuất bản" : "Đã được duyệt";
-        let data = {
-            status
+        let published = {};
+        if (status == 'Đã xuất bản') {
+            published = {
+                user_id: user.id,
+                user_name: user.username,
+                time: Date.now()
+            }
+        } else {
+            published = {
+                user_id: '',
+                user_name: '',
+                time: ''
+            }
         }
+        let data = {
+            status, 
+            published
+        }
+            
         return ArticleModel.updateOne({_id: id}, data);  
     },
 
@@ -59,11 +117,11 @@ module.exports = {
 
     saveArticle: (article, user, options = null) => {
         if (options.task == "add") {
-            /*article.created = {
-                user_id: parseInt(user.id),
+            article.created = {
+                user_id: user.id,
                 user_name: user.username,
                 time: Date.now()
-            }*/
+            }
             return new ArticleModel(article).save();
         }
         if (options.task == "edit") {
@@ -77,11 +135,11 @@ module.exports = {
                 content: article.content,
                 status: 'Chưa được duyệt',
                 refuse_reason: '',
-                /*created: {
-                    user_id: parseInt(user.id),
+                created: {
+                    user_id: user.id,
                     user_name: user.username,
                     time: Date.now()
-                }*/
+                }
             });
         }
         if (options.task == 'browse') {
@@ -97,11 +155,11 @@ module.exports = {
                 tags: article.tags,
                 expected_publish_time: article.expected_publish_time,
                 status: 'Đã được duyệt',
-                /*browsed: {
-                    user_id: parseInt(user.id),
+                browsed: {
+                    user_id: user.id,
                     user_name: user.username,
                     time: Date.now()
-                }*/
+                }
             });
         }
 

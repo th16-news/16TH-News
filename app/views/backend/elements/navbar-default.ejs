@@ -2,6 +2,20 @@
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
             <li>
+                <a href="#">
+                    <i class="fa fa-group fa-fw"></i> Tài khoản
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse on" aria-expanded="true">
+                    <li>
+                        <a href="/"><i class="fa fa-angle-double-right   fa-fw"></i> Trang chủ </a>
+                    </li>
+                    <li>
+                        <a href="/auth/logout"><i class="fa fa-angle-double-right   fa-fw"></i> Đăng xuất </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
             <% if (moduleTitle == 'PHÂN HỆ PHÓNG VIÊN') { %>
                 <a href="/<%= systemConfig.prefixWriter %>">    
             <% } else if (moduleTitle == 'PHÂN HỆ BIÊN TẬP VIÊN') { %>
@@ -17,7 +31,11 @@
                 <a href="/<%= systemConfig.prefixAdministrator %>/users">  
                 <% } %> 
             <% } %> 
+
+                <% if (moduleTitle != 'ERROR PAGE') { %>
                     <i class="fa fa-dashboard fa-fw"></i> CRUD
+                <% } %>
+                    
                 </a>
             </li>
             

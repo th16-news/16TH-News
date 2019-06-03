@@ -51,7 +51,7 @@ router.get('/change-status/:id/:status', (req, res, next) => {
     let currentStatus = ParamsHelpers.getParam(req.params, 'status', 'published');
     let id = ParamsHelpers.getParam(req.params, 'id', '');
 
-    ArticleModel.changeStatus(id, currentStatus).then(() => {
+    ArticleModel.changeStatus(id, req.user, currentStatus).then(() => {
         req.flash('success', notify.CHANGE_STATUS_SUCCESS);
         res.redirect(linkIndex);
     });

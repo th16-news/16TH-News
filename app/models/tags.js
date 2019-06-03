@@ -1,12 +1,8 @@
 const TagModel = require(__path_schemas + 'tags');
 
 module.exports = {
-    listTags: (params, options = null) => {
+    listTags: () => {
         let objWhere = {};
-        //if (params.currentStatus !== 'all') objWhere.status = params.currentStatus;
-        
-        
-        //if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         //let sort = {};
         //sort[params.sortField] = params.sortType;
       
