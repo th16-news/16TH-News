@@ -1,3 +1,5 @@
+<% include ./../../helpers/pagination %>
+
 <% 
     function createSlug(value) {
         var str = value;
@@ -15,6 +17,7 @@
         return str;
     }
     const folder_uploads = 'uploads/articles/';
+    const linkPrefix = systemConfig.prefixFrontend + `/categories/` + createSlug(articleInCategory[0].category.name) + '/';
 %> 
 
 <link rel="stylesheet" href="frontend/css/category_style.css">
@@ -61,15 +64,5 @@
 
 <hr class="my-4 container">
 <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center pagination-lg">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
+    <%- paginationHelper(params.pagination, linkPrefix, params.keyword) %>
 </nav>

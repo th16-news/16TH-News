@@ -30,7 +30,7 @@ var schema = new mongoose.Schema({
         user_name: String,
         time: Date
     },
-    comment: [{
+    comments: [{
         user_avatar: String,
         user_id: String,
         user_name: String,

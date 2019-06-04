@@ -1,0 +1,55 @@
+<% 
+    function createSlug(value) {
+        var str = value;
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ấ|ầ|ẩ|ẫ|ậ|ă|ắ|ằ|ẳ|ẵ|ặ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ế|ề|ể|ễ|ệ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ứ|ừ|ử|ữ|ự/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+        str = str.replace(/ *? /g, "-");
+        str = str.trim();
+        return str;
+    }
+    const folder_uploads = 'uploads/articles/';
+%>
+
+<link rel="stylesheet" href="frontend/css/detail_style.css">
+
+<!-- Container -->
+<div class="container justify-content-center">
+    <br class="my-4">
+    <div class="container post">
+        <nav class="breadcrumb m-0">
+            <a class="breadcrumb-item" href="#"><%= article.category.name %></a>
+        </nav>
+
+        <h1><%= article.name %></h1>
+        <% if (article.status == 'Chưa được duyệt') { %>
+            <hp class="text-muted"><%= moment(article.created.time).format(systemConfig.format_long_time) %></hp>
+        <% } else if (article.status == 'Đã được duyệt') { %>
+            <hp class="text-muted"><%= moment(article.browsed.time).format(systemConfig.format_long_time) %></hp>
+        <% } else if (article.status == 'Đã xuất bản') { %>
+            <hp class="text-muted"><%= moment(article.published.time).format(systemConfig.format_long_time) %></hp>
+        <% } %>
+        <img src="<%= folder_uploads + article.thumb %>" alt="img" class="img-fluid mt-2">
+        <p class="card-text"><%= article.summary %></p>
+        <div class="content mt-3 text-justify">
+            <%- article.content %>
+        </div>
+        <div class="tag mt-2">
+            
+            <% if (article.status == 'Đã được duyệt' || article.status == 'Đã xuất bản') {
+                article.tags.forEach((tag) => { %>
+                    Tag:
+                    <a href="/hashtags/<%= createSlug(tag) %>" class="btn btn-outline-info"><%= tag %></a>
+                <% }) 
+            } %>
+            
+        </div>
+        <br>
+    </div>
+</div>

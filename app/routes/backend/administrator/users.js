@@ -37,8 +37,8 @@ router.get('(/position/:position)?', async (req, res, next) => {
     pageRanges: 5
   }
 
-  await UserModel.countUsers(params).then((data) => {
-    params.pagination.totalItems = data;
+  await UserModel.countUsers(params).then((number) => {
+    params.pagination.totalItems = number;
   });
 
   UserModel.listUsers(params).then((data) => {

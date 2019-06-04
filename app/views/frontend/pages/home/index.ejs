@@ -1,3 +1,5 @@
+<% include ./../../helpers/pagination %>
+
 <% 
     function createSlug(value) {
         var str = value;
@@ -15,6 +17,7 @@
         return str;
     }
     const folder_uploads = 'uploads/articles/';
+    const linkPrefix = systemConfig.prefixFrontend + `/`;
 %> 
 
 <link rel="stylesheet" href="frontend/css/home_style.css">
@@ -407,6 +410,10 @@
 
         </div>
     </div>
-
     <br class="my-5">
 </div>
+
+<hr class="my-4 container">
+<nav aria-label="Page navigation example">
+    <%- paginationHelper(params.pagination, linkPrefix, params.keyword) %>
+</nav>

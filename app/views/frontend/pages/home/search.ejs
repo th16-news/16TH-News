@@ -16,27 +16,24 @@
         str = str.trim();
         return str;
     }
+    const linkPrefix = systemConfig.prefixFrontend + `/search/`;
     const folder_uploads = 'uploads/articles/';
-    const linkPrefix = systemConfig.prefixFrontend + `/hashtags/` + createSlug(nameTag) + '/';
 %> 
 
 <link rel="stylesheet" href="frontend/css/category_style.css">
 
-
-<!-- Tag name -->
+<!-- category name -->
 <div class="container">
     <div class="cat-heading heading">
         <a href="#" class="text-decoration-none">
-            <h3 class="display-4 m-1">#<%= nameTag %></h3>
+            <h3 class="display-4 m-1"><%= params.keyword %></h3>
         </a>
     </div>
 </div>
-<hr class="my-4">
-
 
 <!-- card-grid -->
-<div class="container-fluid card-grid justify-content-center">
-    <% articleInTag.forEach((article) => { %>
+<div class="container card-grid justify-content-center">
+    <% articles.forEach((article) => { %>
     <div class="card text-left">
         <a href="/details/<%= createSlug(article.name) %>">
             <img class="card-img-top" src="<%= folder_uploads + article.thumb %>" alt="<%= article.thumb %>">
@@ -45,6 +42,7 @@
             <a href="#">
 
             </a>
+            
             <a href="/details/<%= createSlug(article.name) %>">
                 <h5 class="card-title"><%= article.name %></h5>
             </a>
@@ -55,6 +53,7 @@
                     <% article.tags.forEach((tag) => { %>
                         <a href="/hashtags/<%= createSlug(tag) %>" class="text-muted">#<%= tag %></a>
                     <% }) %>
+                    
                 </small>
             </p>
             <p class="card-text"><%= article.summary %></p>

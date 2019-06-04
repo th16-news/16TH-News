@@ -87,7 +87,7 @@
                                         <%= (params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage) + index + 1 %>
                                     </td>
                                     <td>
-                                        <a href=""><%= item.name %></a>
+                                        <%= item.name %>
                                     </td>
                                     <td>
                                         <%- imageHelper(folderUpload, item.thumb, item.name) %>

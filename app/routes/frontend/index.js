@@ -8,6 +8,6 @@ router.use('/auth', require('./auth'));
 router.use('/categories', require('./categories'));
 router.use('/hashtags', require('./hashtags'));
 router.use('/details', require('./details'));
-
+router.use('/draft', require('./draft'));
 
 module.exports = router;

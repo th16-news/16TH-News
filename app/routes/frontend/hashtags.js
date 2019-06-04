@@ -14,6 +14,18 @@ const pageTitle = 'hashtags';
 
 router.get('/:tag_name', async (req, res, next) => {
     let tag_slug = ParamsHelpers.getParam(req.params, 'tag_name', '');
+
+    let params = {
+        keyword: ''
+    };
+
+    params.pagination = {
+        totalItems: 1,
+        totalItemsPerPage: 2,
+        currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
+        pageRanges: 5
+    }
+
     let nameTag = '';
     await TagModel.listTags().then((tags) => {
         tags.forEach((tag) => {
@@ -22,8 +34,14 @@ router.get('/:tag_name', async (req, res, next) => {
             }
         })
     })
+    params.name = nameTag;
+
+    await ArticleModel.countArticlesFrontend(params, 'hashtags').then((number) => {
+        params.pagination.totalItems = number;
+    });
+
     let articleInTag = [];
-    await ArticleModel.listArticlesFrontend({name: nameTag}, {task: 'article-in-tag'}).then((article) => {
+    await ArticleModel.listArticlesFrontend(params, {task: 'article-in-tag'}).then((article) => {
         articleInTag = article;
     });
 
@@ -33,7 +51,8 @@ router.get('/:tag_name', async (req, res, next) => {
         pageTitle,
         //top_post: false,
         articleInTag,
-        nameTag
+        nameTag,
+        params
     });
 });
 

@@ -48,9 +48,9 @@ app.use(session({
     secret: 'hatomia',
     resave: false,
     saveUninitialized: true,
-    //cookie: {
-      //maxAge: 15*60*1000
-    //}
+    cookie: {
+      maxAge: 15*60*1000
+    }
 }));
 
 // set passport

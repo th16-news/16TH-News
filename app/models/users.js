@@ -80,7 +80,6 @@ module.exports = {
             });
         }
         /*if (options.task == "edit-password") {
-            console.log(user.password);
             return UserModel.updateOne({_id: user.id}, {
                 password: user.password
             });

@@ -48,27 +48,48 @@
     <div class="d-flex justify-content-center mt-4">
         <div class="comment">
             <p class="lead">Phản hồi:</p>
-            <div class="card">
-                <div class="d-float mt-3 ml-3">
-                    <a href="#">
-                        <img src="frontend/img/comment-icon.png" alt="comment-icon" class="user-icon float-left mr-2">
-                    </a>
-                </div>
-                <textarea name="comment" cols="30" rows="2" placeholder="Write your response..."
-                    class="form-control border-0 float-left m-1" style="width: 99%; resize:none;"></textarea>
-                <div class="inline-block m-2">
-                    <button class="btn btn-sm btn-primary btn-inline">Đăng bình luận</button>
-                </div>
-            </div>
-            <% article.comment.forEach((comment) => { %>
+            <% if (user == true) { %>
+            <form action="/details/<%= createSlug(article.name) %>" method="post">
                 <div class="card">
                     <div class="d-float mt-3 ml-3">
                         <a href="#">
-                            <img src="<%= folder_uploads_users + comment.user_avatar %>" alt="comment-icon" class="user-icon float-left mr-2">
+                            <img src="frontend/img/comment-icon.png" alt="comment-icon" class="user-icon float-left mr-2">
+                        </a>
+                    </div>
+                    <textarea name="content" cols="30" rows="2" placeholder="Write your response..."
+                        class="form-control border-0 float-left m-1" style="width: 99%; resize:none;"></textarea>
+                    <div class="inline-block m-2">
+                        <input class="btn btn-sm btn-primary btn-inline" type="submit" value="Đăng bình luận"></input>
+                    </div>
+                </div>
+            </form> 
+            <% } else { %>
+                <div class="card">
+                    <div class="d-float mt-3 ml-3">
+                        <a href="#">
+                            <img src="frontend/img/comment-icon.png" alt="comment-icon" class="user-icon float-left mr-2">
+                        </a>
+                    </div>
+                    <textarea name="content" cols="30" rows="2" placeholder="Write your response..."
+                        class="form-control border-0 float-left m-1" style="width: 99%; resize:none;"></textarea>
+                    <div class="inline-block m-2">
+                        <button class="btn btn-sm btn-primary btn-inline" onclick="alert('Bạn cần đăng nhập')">Đăng bình luận</button>
+                    </div>
+                </div>
+            <% } %>
+            <% article.comments.reverse().forEach((comment) => { %>
+                <div class="card">
+                    <div class="d-float mt-3 ml-3">
+                        <a href="#">
+                            <% if (comment.user_avatar != undefined && comment.user_avatar != '') { %>
+                                <img src="<%= folder_uploads_users + comment.user_avatar %>" alt="comment-icon" class="user-icon float-left mr-2">
+                            <% } else { %>
+                                <img src="<%= folder_uploads_users + 'no-avatar.jpg' %>" alt="comment-icon" class="user-icon float-left mr-2">
+                            <% } %>
                         </a>
                         <p class="text-muted">
                             <a href="#" class="text-muted text-decoration-none"><%= comment.user_name %></a>
-                            <br><%= comment.time %>
+                            <br><%= moment(comment.time).format(systemConfig.format_long_time) %> %>
                         </p>
                     </div>
                     <p class="card-text ml-3 mb-3 mr-3"><%= comment.content %></p>

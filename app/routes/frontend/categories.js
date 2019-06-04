@@ -14,25 +14,45 @@ const pageTitle = 'categories';
 
 router.get('/:category_name', async (req, res, next) => {
     let category_slug = ParamsHelpers.getParam(req.params, 'category_name', '');
+
+    let params = {
+        keyword: ''
+    };
+
+    params.pagination = {
+        totalItems: 1,
+        totalItemsPerPage: 2,
+        currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
+        pageRanges: 5
+    }
+
     let idCategory = '';
+    let nameCategory = '';
     await CategoryModel.listCategories().then((categories) => {
         categories.forEach((category) => {
             if (StringHelpers.createSlug(category.name) == category_slug) {
                 idCategory = category.id;
+                nameCategory = category.name;
             }
         })
     })
+    params.id = idCategory;
+
+    await ArticleModel.countArticlesFrontend(params, 'categories').then((number) => {
+        params.pagination.totalItems = number;
+    });
     let articleInCategory = [];
-    await ArticleModel.listArticlesFrontend({id: idCategory}, {task: 'article-in-category'}).then((article) => {
+    await ArticleModel.listArticlesFrontend(params, {task: 'article-in-category'}).then((article) => {
         articleInCategory = article;
     });
 
 
     res.render(`${folderView}index`, {
         layout: layoutFrontend,
-        pageTitle,
+        pageTitle: nameCategory,
         //top_post: false,
-        articleInCategory
+        articleInCategory,
+        params
     });
 });
 

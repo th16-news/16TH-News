@@ -11,11 +11,11 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item dropdown active mr-lg-2">
+            <li class="nav-item dropdown <%= (pageTitle == 'home') ? 'active' : '' %> mr-lg-2">
                 <a class="nav-link" href="/" aria-haspopup="true"
                     aria-expanded="false">Home</a>
             </li>
-            <li class="nav-item dropdown mr-lg-2">
+            <li class="nav-item dropdown <%= (pageTitle == 'Điện thoại' || pageTitle == 'Máy tính bảng') ? 'active' : '' %> mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Mobile</a>
                 <div class="dropdown-menu">
@@ -23,7 +23,7 @@
                     <a class="dropdown-item" href="/categories/may-tinh-bang">Máy tính bảng</a>
                 </div>
             </li>
-            <li class="nav-item dropdown mr-lg-2">
+            <li class="nav-item dropdown <%= (pageTitle == 'Digital marketting' || pageTitle == 'Media') ? 'active' : '' %> mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Internet</a>
                 <div class="dropdown-menu">
@@ -31,7 +31,7 @@
                     <a class="dropdown-item" href="/categories/media">Media</a>
                 </div>
             </li>
-            <li class="nav-item dropdown mr-lg-2">
+            <li class="nav-item dropdown <%= (pageTitle == 'Lịch sử' || pageTitle == 'Tri thức') ? 'active' : '' %> mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Khám phá</a>
                 <div class="dropdown-menu">
@@ -39,7 +39,7 @@
                     <a class="dropdown-item" href="/categories/tri-thuc">Tri thức</a>
                 </div>
             </li>
-            <li class="nav-item dropdown mr-lg-2">
+            <li class="nav-item dropdown <%= (pageTitle == 'Tản mạn' || pageTitle == 'Ý tưởng sáng tạo') ? 'active' : '' %> mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Trà đá công nghệ</a>
                 <div class="dropdown-menu">
@@ -47,7 +47,7 @@
                     <a class="dropdown-item" href="/categories/y-tuong-sang-tao">Ý tưởng sáng tạo</a>
                 </div>
             </li>
-            <li class="nav-item dropdown mr-lg-2">
+            <li class="nav-item dropdown <%= (pageTitle == 'Sống' || pageTitle == 'Thủ thuật') ? 'active' : '' %> mr-lg-2">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">Khác</a>
                 <div class="dropdown-menu">
@@ -91,12 +91,12 @@
 
 <div id="search-bar" style="width: 100%;">
     <div class="input-group container-fluid mt-2">
-        <input class="form-control form-inline" type="text" placeholder="Search">
-        <div class="input-group-append">
-            <form>
+        <form action="/search" method="get">
+            <input class="form-control form-inline" type="text" name="keyword" placeholder="Search">
+            <div class="input-group-append"> 
                 <button class="btn btn-success m-0 search-button" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 
