@@ -21,7 +21,7 @@ router.get('/:tag_name', async (req, res, next) => {
 
     params.pagination = {
         totalItems: 1,
-        totalItemsPerPage: 2,
+        totalItemsPerPage: 4,
         currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
         pageRanges: 5
     }
@@ -49,7 +49,6 @@ router.get('/:tag_name', async (req, res, next) => {
     res.render(`${folderView}index`, {
         layout: layoutFrontend,
         pageTitle,
-        //top_post: false,
         articleInTag,
         nameTag,
         params

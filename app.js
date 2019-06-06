@@ -36,6 +36,7 @@ mongoose.connect(`mongodb+srv://Hatomia:hatomiatruong@th16-news-vwlpp.gcp.mongod
 
 var app = express();
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

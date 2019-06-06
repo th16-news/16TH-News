@@ -26,6 +26,9 @@
         <nav class="breadcrumb m-0">
             <a class="breadcrumb-item" href="#"><%= article.category.name %></a>
         </nav>
+        <% if (article.type == 'Premium') { %>
+            <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+        <% } %>
 
         <h1><%= article.name %></h1>
         <% if (article.status == 'Chưa được duyệt') { %>

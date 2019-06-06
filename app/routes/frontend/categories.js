@@ -21,7 +21,7 @@ router.get('/:category_name', async (req, res, next) => {
 
     params.pagination = {
         totalItems: 1,
-        totalItemsPerPage: 2,
+        totalItemsPerPage: 4,
         currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
         pageRanges: 5
     }
@@ -50,7 +50,6 @@ router.get('/:category_name', async (req, res, next) => {
     res.render(`${folderView}index`, {
         layout: layoutFrontend,
         pageTitle: nameCategory,
-        //top_post: false,
         articleInCategory,
         params
     });

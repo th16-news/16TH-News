@@ -8,7 +8,6 @@ module.exports = {
       
         return CategoryModel
                 .find(objWhere)
-                .select('id name status')
                 //.sort(sort)
     },
 

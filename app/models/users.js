@@ -12,7 +12,6 @@ module.exports = {
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel
                 .find(objWhere)
-                .select('name avatar status position category.name alias email dob renewal_date username')
                 //.sort(sort)
                 .skip((params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage))
                 .limit(params.pagination.totalItemsPerPage);
@@ -42,14 +41,20 @@ module.exports = {
     getUserByUsername: (username) => {
        return UserModel
        .find({ status: 'Hoạt động', username: username })
-        .select('username email password')
+        .select('id username email password')
     },
 
     getUserByUsernameForgetPassword: (username) => {
         return UserModel
         .find({ username: username })
          .select('username email password')
-     },
+    },
+
+    getUserByUsernameChangePassword: (username) => {
+        return UserModel
+        .find({ username: username })
+         .select('username email password')
+    },
 
     changeStatus: (id, currentStatus) => {
         let status = (currentStatus === "active") ? "Không hoạt động" : "Hoạt động";
@@ -79,11 +84,11 @@ module.exports = {
                 category: user.category
             });
         }
-        /*if (options.task == "edit-password") {
+        if (options.task == "edit-password") {
             return UserModel.updateOne({_id: user.id}, {
                 password: user.password
             });
-        }*/
+        }
         if (options.task == "edit-info") {
             return UserModel.updateOne({_id: user.id}, {
                 username: user.username,

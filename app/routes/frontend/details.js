@@ -15,14 +15,19 @@ router.get('/:article_name', async (req, res, next) => {
     let article_slug = ParamsHelpers.getParam(req.params, 'article_name', '');
     let idArticle = '';
     let idCategoryArticle = '';
+    let viewsArticle = 0;
     await ArticleModel.listArticlesFrontend(null, {task: 'article'}).then((articles) => {
         articles.forEach((article) => {
             if (StringHelpers.createSlug(article.name) == article_slug) {
                 idArticle = article.id;
                 idCategoryArticle = article.category.id;
+                (article.views == undefined || article.views == null) ? viewsArticle = 0 : viewsArticle = article.views;
             }
         })
     })
+
+    await ArticleModel.updateViews(idArticle, viewsArticle);
+
     let articleDetail = [];
     await ArticleModel.listArticlesFrontend({id: idArticle}, {task: 'article-detail'}).then((article) => {
         articleDetail = article;
@@ -36,7 +41,6 @@ router.get('/:article_name', async (req, res, next) => {
     res.render(`${folderView}index`, {
         layout: layoutFrontend,
         pageTitle,
-        //top_post: false,
         article: articleDetail[0],
         articleRandomInCategory,
         user: (req.isAuthenticated()) ? true : false

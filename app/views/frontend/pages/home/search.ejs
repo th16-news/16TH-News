@@ -39,9 +39,9 @@
             <img class="card-img-top" src="<%= folder_uploads + article.thumb %>" alt="<%= article.thumb %>">
         </a>
         <div class="card-body">
-            <a href="#">
-
-            </a>
+            <% if (article.type == 'Premium') { %>
+                <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+            <% } %>
             
             <a href="/details/<%= createSlug(article.name) %>">
                 <h5 class="card-title"><%= article.name %></h5>

@@ -27,9 +27,17 @@
         <nav class="breadcrumb m-0">
             <a class="breadcrumb-item" href="#"><%= article.category.name %></a>
         </nav>
+        <% if (article.type == 'Premium') { %>
+            <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+        <% } %>
 
         <h1><%= article.name %></h1>
-        <hp class="text-muted"><%= moment(article.published.time).format(systemConfig.format_long_time) %></hp>
+        <hp class="text-muted"><%= moment(article.published.time).format(systemConfig.format_long_time) %></hp><br>
+        <% if (article.type == 'Premium') { %>
+            <input class="btn btn-sm btn-success btn-inline" type="submit" value="Download"></input>
+        <% } %>
+
+        
         <img src="<%= folder_uploads + article.thumb %>" alt="img" class="img-fluid mt-2">
         <p class="card-text"><%= article.summary %></p>
         <div class="content mt-3 text-justify">

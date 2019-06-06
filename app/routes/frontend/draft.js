@@ -30,7 +30,6 @@ router.get('/:article_name', async (req, res, next) => {
     res.render(`${folderView}index`, {
         layout: layoutFrontend,
         pageTitle,
-        //top_post: false,
         article: articleDetailDraft[0]
     });
 });

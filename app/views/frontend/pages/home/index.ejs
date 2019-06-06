@@ -29,104 +29,62 @@
     <div class="container topnews">
         <h3 class="display-4 heading">Top news</h3>
         <div class="row">
+            <% if (articlesTopViews.length > 0) { %>
             <div class="col-md-6 mb-1 mb-xs-2 mb-sm-3 mb-md-0 mb-lg-0">
                 <div class="card bigcard">
-                    <a href="#"><img src="frontend/img/card_img_1.jpg" class="img-fluid" alt="card_img_1"></a>
+                    <a href="/details/<%= createSlug(articlesTopViews[0].name) %>">
+                        <img src="<%= folder_uploads + articlesTopViews[0].thumb %>" class="img-fluid" alt="<%= articlesTopViews[0].thumb %>">
+                    </a>
                     <div class="card-body">
-                        <a href="#" class="text-decoration-none">
-                            <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
-                                quaerat animi amet, saepe dolorem hic quisquam doloribus sint deleniti obcaecati! Quae
-                                quas veniam, et quasi beatae odio minima assumenda, voluptatibus consectetur, sint ad
-                                maxime dicta odit aliquid pariatur magnam quia nihil? In dicta minima, possimus
-                                perferendis, quaerat eum ex blanditiis animi sit incidunt voluptatum eos illum delectus
-                                corporis inventore deserunt, asperiores facilis nesciunt aspernatur impedit? Autem rem
-                                voluptates alias corrupti explicabo fugit, quia ullam voluptatibus voluptatem hic,
-                                consequuntur porro. Magnam aut veniam, cum deserunt, facere architecto quibusdam
-                                officiis maiores excepturi expedita atque! Aspernatur, cumque dolorum laudantium quidem
-                                repellat expedita odio!</h5>
+                        <% if (articlesTopViews[0].type == 'Premium') { %>
+                            <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                        <% } %>
+                        <a href="/details/<%= createSlug(articlesTopViews[0].name) %>" class="text-decoration-none">
+                            <h5 class="card-title"><%= articlesTopViews[0].name %></h5>
                         </a>
-                        <p class="card-text cat-time"><small class="text-muted"><a href="#" class="text-muted"><a
-                                        href="#" class="text-muted">Mobile</a><span class="middotDivider"></span>3 mins
-                                    ago</small></p>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                            accusantium
-                            expedita veritatis commodi, sequi ipsam neque molestiae debitis</p>
+                        <p class="card-text cat-time">
+                            <small class="text-muted">
+                                <a href="/categories/<%= createSlug(articlesTopViews[0].category.name) %>" class="text-muted"><%= articlesTopViews[0].category.name %></a>
+                                <span class="middotDivider"></span><%= moment(articlesTopViews[0].published.time).format(systemConfig.format_long_time) %>
+                            </small>
+                        </p>
+                        <p class="card-text"><%= articlesTopViews[0].summary %></p>
                     </div>
                 </div>
             </div>
+            <% } %>
 
+            <% if (articlesTopViews.length > 1) { %>
             <div class="col-md-6 group-small-card">
-
+                <% for (let pos = 1; (articlesTopViews.length < 4) ? (pos < articlesTopViews.length) : (pos < 4); pos++) { %>
                 <div class="card card-small">
                     <div class="row no-gutters">
                         <div class="col-4">
-                            <a href="#"><img src="frontend/img/card_img_2.jpg" class="img-fluid imgsmall" alt=""></a>
+                            <a href="/details/<%= createSlug(articlesTopViews[pos].name) %>">
+                                <img src="<%= folder_uploads + articlesTopViews[pos].thumb %>" class="img-fluid imgsmall" alt="<%= articlesTopViews[pos].thumb %>">
+                            </a>
                         </div>
                         <div class="col">
                             <div class="card-block px-2">
-                                <a href="#">
-                                    <h5 class="card-title">Title</h5>
+                                <% if (articlesTopViews[pos].type == 'Premium') { %>
+                                    <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                <% } %>
+                                <a href="/details/<%= createSlug(articlesTopViews[pos].name) %>">
+                                    <h5 class="card-title"><%= articlesTopViews[pos].name %></h5>
                                 </a>
-                                <p class="card-text cat-time"><small class="text-muted"><a href="#"
-                                            class="text-muted"><a href="#" class="text-muted">Mobile</a><span
-                                                class="middotDivider"></span>3 mins
-                                            ago</small></p>
+                                <p class="card-text cat-time">
+                                    <small class="text-muted">
+                                        <a href="/categories/<%= createSlug(articlesTopViews[pos].category.name) %>" class="text-muted"><%= articlesTopViews[pos].category.name %></a>
+                                        <span class="middotDivider"></span><%= moment(articlesTopViews[pos].published.time).format(systemConfig.format_long_time) %>
+                                    </small>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card card-small">
-                    <div class="row no-gutters">
-                        <div class="col-4">
-                            <a href="#"><img src="frontend/img/card_img_2.jpg" class="img-fluid imgsmall" alt=""></a>
-                        </div>
-                        <div class="col">
-                            <div class="card-block px-2">
-                                <a href="#">
-                                    <h5 class="card-title">Title</h5>
-                                </a>
-                                <p class="card-text cat-time"><small class="text-muted"><a href="#"
-                                            class="text-muted">Mobile</a><span class="middotDivider"></span>3 mins
-                                        ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-small">
-                    <div class="row no-gutters">
-                        <div class="col-4">
-                            <a href="#"><img src="frontend/img/card_img_2.jpg" class="img-fluid imgsmall" alt=""></a>
-                        </div>
-                        <div class="col">
-                            <div class="card-block px-2">
-                                <a href="#">
-                                    <h5 class="card-title">Title</h5>
-                                </a>
-                                <p class="card-text cat-time"><small class="text-muted"><a href="#"
-                                            class="text-muted">Mobile</a><span class="middotDivider"></span>3 mins
-                                        ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-small">
-                    <div class="row no-gutters">
-                        <div class="col-4 card-small-img">
-                            <a href="#"><img src="frontend/img/card_img_2.jpg" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="col">
-                            <div class="card-block px-2">
-                                <a href="#">
-                                    <h5 class="card-title">Title</h5>
-                                </a>
-                                <p class="card-text cat-time"><small class="text-muted"><a href="#"
-                                            class="text-muted">Mobile</a><span class="middotDivider"></span>3 mins
-                                        ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <% } %>
             </div>
+            <% } %>
         </div>
     </div>
 
@@ -134,206 +92,56 @@
 
     <!-- 10 most read news -->
     <div class="container">
-        <h1 class="display-4 heading">Most read</h1>
+        <h1 class="display-4 heading">Most views</h1>
         <div class="row">
             <div id="carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-none d-lg-block no-gutters">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
+                
+                        <div class="carousel-item active">
+                            <div class="d-none d-lg-block no-gutters">
+                                <div class="slide-box">
+                                <% for (let pos = 0; (articlesMostViews.length < 5) ? (pos < articlesMostViews.length) : (pos < 5); pos++) { %>
+                                    <div class="card">
+                                        <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>">
+                                            <img class="card-img-top cardimg" src="<%= folder_uploads + articlesMostViews[pos].thumb %>" alt="<%= articlesMostViews[pos].thumb %>">
                                         </a>
+                                        <div class="card-body">
+                                            <% if (articlesMostViews[pos].type == 'Premium') { %>
+                                                <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                            <% } %>
+                                            <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>" class="stretched-link">
+                                                <h5 class="card-title"><%= articlesMostViews[pos].name %></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
+                                <% } %>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-none d-md-block d-lg-none">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
+                    
+                        <% if (articlesMostViews.length > 5) { %>
+                        <div class="carousel-item">
+                            <div class="d-none d-lg-block no-gutters">
+                                <div class="slide-box">
+                                <% for (let pos = 5; (articlesMostViews.length < 10) ? (pos < articlesMostViews.length) : (pos < 10); pos++) { %>
+                                    <div class="card">
+                                        <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>">
+                                            <img class="card-img-top cardimg" src="<%= folder_uploads + articlesMostViews[pos].thumb %>" alt="<%= articlesMostViews[pos].thumb %>">
                                         </a>
+                                        <div class="card-body">
+                                            <% if (articlesMostViews[pos].type == 'Premium') { %>
+                                                <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                            <% } %>
+                                            <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>" class="stretched-link">
+                                                <h5 class="card-title"><%= articlesMostViews[pos].name %></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
+                                <% } %>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-none d-sm-block d-md-none">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-block d-sm-none">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-none d-lg-block no-gutters">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-none d-md-block d-lg-none">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-none d-sm-block d-md-none">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-block d-sm-none">
-                            <div class="slide-box">
-                                <div class="card">
-                                    <img class="card-img-top cardimg" src="frontend/img/card_img_1.jpg" alt="">
-                                    <div class="card-body">
-                                        <a href="#" class="stretched-link">
-                                            <h5 class="card-title">Title</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <% } %>
                 </div>
                 <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -355,7 +163,7 @@
 
             <div class="col-md-8 group-small-card">
                 <h3 class="display-4 heading">New news</h3>
-                <% articleNew.forEach((article) => { %>
+                <% articlesNew.forEach((article) => { %>
                 <div class="card card-small">
                     <div class="row no-gutters">
                         <div class="col-4">
@@ -363,6 +171,9 @@
                         </div>
                         <div class="col">
                             <div class="card-block px-2">
+                                <% if (article.type == 'Premium') { %>
+                                    <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                <% } %>
                                 <a href="/details/<%= createSlug(article.name) %>">
                                     <h5 class="card-title"><%= article.name %></h5>
                                 </a>
@@ -381,8 +192,8 @@
 
             <div class="col-md-4 group-small-card">
                 <!-- Need not to stretch -->
-                <h3 class="display-4 heading">Top news</h3>
-                <% articleTopNewCategories.forEach((article) => { %>
+                <h3 class="display-4 heading">New news categories</h3>
+                <% articlesTopNewCategories.forEach((article) => { %>
                 <div class="card card-small">
                     <div class="row no-gutters">
                         <div class="col-4">
@@ -392,6 +203,9 @@
                         </div>
                         <div class="col">
                             <div class="card-block px-2">
+                                <% if (article.type == 'Premium') { %>
+                                    <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                <% } %>
                                 <a href="/details/<%= createSlug(article.name) %>">
                                     <h5 class="card-title"><%= article.name %></h5>
                                 </a>

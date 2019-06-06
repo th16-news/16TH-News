@@ -36,7 +36,8 @@ var schema = new mongoose.Schema({
         user_name: String,
         content: String,
         time: Date
-    }]
+    }],
+    views: Number
 });
 
 module.exports = mongoose.model(clusterConfig.collection_articles, schema);

@@ -11,6 +11,7 @@ const layoutFrontend = __path_views_frontend + 'frontend';
 const pageTitle = 'home';
 
 router.get('/', async (req, res, next) => {
+
   let params = {
     keyword: ''
   };
@@ -26,9 +27,19 @@ router.get('/', async (req, res, next) => {
     params.pagination.totalItems = number;
   });
 
-  let articleNew = [];
+  let articlesMostViews = [];
+  await ArticleModel.listArticlesFrontend(params, {task: 'article-most-views'}).then((articles) => {
+    articlesMostViews = articles;
+  });
+
+  let articlesTopViews = [];
+  await ArticleModel.listArticlesFrontend(params, {task: 'article-top-views'}).then((articles) => {
+    articlesTopViews = articles;
+  });
+
+  let articlesNew = [];
   await ArticleModel.listArticlesFrontend(params, {task: 'article-new'}).then((articles) => {
-    articleNew = articles;
+    articlesNew = articles;
   });
 
   let articlesAllPublish = [];
@@ -36,12 +47,14 @@ router.get('/', async (req, res, next) => {
     articlesAllPublish = articles;
   });
 
-  let articleTopNewCategories = [];
+  
+
+  let articlesTopNewCategories = [];
   await CategoryModel.listCategories({}).then((categories) => {
     categories.forEach((category) => {
       for (let index = 0; index < articlesAllPublish.length; index++) {
         if (articlesAllPublish[index].category.name == category.name) {
-          articleTopNewCategories.push(articlesAllPublish[index]);
+          articlesTopNewCategories.push(articlesAllPublish[index]);
           break;
         }
       }
@@ -51,9 +64,10 @@ router.get('/', async (req, res, next) => {
   res.render(`${folderView}index`, {
     layout: layoutFrontend,
     pageTitle,
-    //top_post: true,
-    articleNew,
-    articleTopNewCategories,
+    articlesNew,
+    articlesTopNewCategories,
+    articlesMostViews,
+    articlesTopViews,
     params
   });
 });
@@ -64,7 +78,7 @@ router.get('/search', async (req, res, next) => {
 
   params.pagination = {
     totalItems: 1,
-    totalItemsPerPage: 2,
+    totalItemsPerPage: 4,
     currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
     pageRanges: 5
   }
@@ -78,7 +92,6 @@ router.get('/search', async (req, res, next) => {
     res.render(`${folderView}search`, {
       layout: layoutFrontend,
       pageTitle: 'search',
-      //top_post: true,
       articles,
       params
     });

@@ -8,7 +8,6 @@ module.exports = {
       
         return TagModel
                 .find(objWhere)
-                .select('name status')
                 //.sort(sort)
     },
 
