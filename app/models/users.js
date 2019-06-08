@@ -1,6 +1,8 @@
 const ParamsHelpers = require(__path_helpers + 'params');
 const StringHelpers = require(__path_helpers + 'strings');
 const UserModel = require(__path_schemas + 'users');
+const uploadFolder = 'public/uploads/users/';
+
 
 
 module.exports = {
@@ -65,9 +67,9 @@ module.exports = {
     },
 
     deleteUser: async (id) => {
-        //await UserModel.findById(id).then((user) => {
-        //    FileHelpers.remove(uploadFolder, user.thumb);
-        //});
+        await UserModel.findById(id).then((user) => {
+              FileHelpers.remove(uploadFolder, user.avatar);
+        });
         return UserModel.deleteOne({_id: id});
     },
 
