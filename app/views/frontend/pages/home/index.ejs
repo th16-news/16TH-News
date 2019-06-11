@@ -35,9 +35,9 @@
                     <a href="/details/<%= createSlug(articlesTopViews[0].name) %>">
                         <img src="<%= folder_uploads + articlesTopViews[0].thumb %>" class="img-fluid" alt="<%= articlesTopViews[0].thumb %>">
                     </a>
-                    <div class="card-body">
+                    <div class="card-body premium-container">
                         <% if (articlesTopViews[0].type == 'Premium') { %>
-                            <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                            <div class="btn btn-sm btn-warning btn-inline badge-premium-top">PREMIUM</div>
                         <% } %>
                         <a href="/details/<%= createSlug(articlesTopViews[0].name) %>" class="text-decoration-none">
                             <h5 class="card-title"><%= articlesTopViews[0].name %></h5>
@@ -92,7 +92,7 @@
 
     <!-- 10 most read news -->
     <div class="container">
-        <h1 class="display-4 heading">Most views</h1>
+        <h1 class="heading">Most views</h1>
         <div class="row">
             <div id="carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
@@ -105,9 +105,9 @@
                                         <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>">
                                             <img class="card-img-top cardimg" src="<%= folder_uploads + articlesMostViews[pos].thumb %>" alt="<%= articlesMostViews[pos].thumb %>">
                                         </a>
-                                        <div class="card-body">
+                                        <div class="card-body premium-container">
                                             <% if (articlesMostViews[pos].type == 'Premium') { %>
-                                                <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                                <div class="btn btn-sm btn-warning btn-inline badge-premium-top">PREMIUM</div>
                                             <% } %>
                                             <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>" class="stretched-link">
                                                 <h5 class="card-title"><%= articlesMostViews[pos].name %></h5>
@@ -128,9 +128,9 @@
                                         <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>">
                                             <img class="card-img-top cardimg" src="<%= folder_uploads + articlesMostViews[pos].thumb %>" alt="<%= articlesMostViews[pos].thumb %>">
                                         </a>
-                                        <div class="card-body">
+                                        <div class="card-body premium-container">
                                             <% if (articlesMostViews[pos].type == 'Premium') { %>
-                                                <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                                <div class="btn btn-sm btn-warning btn-inline badge-premium-top">PREMIUM</div>
                                             <% } %>
                                             <a href="/details/<%= createSlug(articlesMostViews[pos].name) %>" class="stretched-link">
                                                 <h5 class="card-title"><%= articlesMostViews[pos].name %></h5>
@@ -161,7 +161,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-8 group-small-card">
+            <div class="col-lg-8">
                 <h3 class="display-4 heading">New news</h3>
                 <% articlesNew.forEach((article) => { %>
                 <div class="card card-small">
@@ -172,7 +172,7 @@
                         <div class="col">
                             <div class="card-block px-2">
                                 <% if (article.type == 'Premium') { %>
-                                    <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                    <div class="btn btn-sm btn-warning btn-inline badge-premium-right">PREMIUM</div>
                                 <% } %>
                                 <a href="/details/<%= createSlug(article.name) %>">
                                     <h5 class="card-title"><%= article.name %></h5>
@@ -190,13 +190,12 @@
                 <% }) %>
             </div>
 
-            <div class="col-md-4 group-small-card">
-                <!-- Need not to stretch -->
-                <h3 class="display-4 heading">New news categories</h3>
+            <div class="col-lg-4">
+                <h5 class="display-4 heading">New news categories</h5>
                 <% articlesTopNewCategories.forEach((article) => { %>
                 <div class="card card-small">
                     <div class="row no-gutters">
-                        <div class="col-4">
+                        <div class="col-4 my-auto">
                             <a href="/details/<%= createSlug(article.name) %>">
                                 <img src="<%= folder_uploads + article.thumb %>" class="img-fluid imgsmall" alt="<%= article.thumb %>">
                             </a>
@@ -204,7 +203,8 @@
                         <div class="col">
                             <div class="card-block px-2">
                                 <% if (article.type == 'Premium') { %>
-                                    <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                                    <span class="d-md-none d-lg-block badge badge-warning badge-premium-right font-weight-normal">PREMIUM</span>
+                                    <div class="d-md-block d-lg-none btn btn-sm btn-warning btn-inline badge-premium-right">PREMIUM</div>
                                 <% } %>
                                 <a href="/details/<%= createSlug(article.name) %>">
                                     <h5 class="card-title"><%= article.name %></h5>

@@ -38,9 +38,9 @@
         <a href="/details/<%= createSlug(article.name) %>">
             <img class="card-img-top" src="<%= folder_uploads + article.thumb %>" alt="<%= article.thumb %>">
         </a>
-        <div class="card-body">
+        <div class="card-body premium-container">
             <% if (article.type == 'Premium') { %>
-                <div class="btn btn-sm btn-warning btn-inline">PREMIUM</div>
+                <div class="btn btn-sm btn-warning btn-inline badge-premium-top">PREMIUM</div>
             <% } %>
         
             <a href="/details/<%= createSlug(article.name) %>">

@@ -53,8 +53,8 @@
     </div>
 
     <!-- Comment -->
-    <div class="d-flex justify-content-center mt-4">
-        <div class="comment">
+    <div class="container mt-4">
+        <div class="comment mx-auto">
             <p class="lead">Phản hồi:</p>
             <% if (user == true) { %>
             <form action="/details/<%= createSlug(article.name) %>" method="post">

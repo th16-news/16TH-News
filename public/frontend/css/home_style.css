@@ -42,19 +42,14 @@
 }
 
 /* Card hover */
-/* .card {
-	box-shadow: 0 0 15px rgba(0,0,0,0.3);
-	opacity: 0.9;
-	transition: opacity 0.5s;
-}
 .card:hover {
 	opacity: 1;
 	transition: opacity 0.5s;
-	box-shadow: 0 0 5px rgba(0,0,0,0.7);
-} */
+	box-shadow: inset 0 1px 0 rgba(237, 240, 241, 0.993), 0 2px 5px rgba(0,0,0,0.5);
+}
 
 .bigcard {
-		max-height: 500px;
+	max-height: 500px;
 }
 .bigcard .card-title { /* overflow */
 	max-height: 48px;
