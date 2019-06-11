@@ -61,7 +61,11 @@
                 <div class="card">
                     <div class="d-float mt-3 ml-3">
                         <a href="#">
-                            <img src="frontend/img/comment-icon.png" alt="comment-icon" class="user-icon float-left mr-2">
+                            <% if (userInfo.avatar != undefined && userInfo.avatar != '') { %>
+                                <img src="<%= folder_uploads_users + userInfo.avatar %>" alt="comment-icon" class="user-icon float-left mr-2">
+                            <% } else { %>
+                                <img src="<%= folder_uploads_users + 'no-avatar.jpg' %>" alt="comment-icon" class="user-icon float-left mr-2">
+                            <% } %>
                         </a>
                     </div>
                     <textarea name="content" cols="30" rows="2" placeholder="Write your response..."
