@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 
   params.pagination = {
     totalItems: 1,
-    totalItemsPerPage: 2,
+    totalItemsPerPage: 5,
     currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
     pageRanges: 5
   }

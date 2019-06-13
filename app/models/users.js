@@ -30,14 +30,9 @@ module.exports = {
         return UserModel.countDocuments(objWhere);
     },
 
-    countUsersRegister: (input, option) => {
-        if (option == 'username') {
-            return UserModel.countDocuments({ username: input.username});
-        } else if (option == 'email') {
-            return UserModel.countDocuments({ email: input.email});
-        } else if (option == 'password') {
-            return UserModel.countDocuments({ password: input.password});
-        }
+    getAllUsersByEmail: (email) => {
+        return UserModel
+            .find({email: email })
     },
 
     getUserByUsername: (username) => {
