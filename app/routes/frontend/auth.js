@@ -132,45 +132,41 @@ router.post('/info', async (req, res, next) => {
                 });
             });    
         } else {
-            let count = 0;
-            await UserModel.countUsersRegister(input, 'username').then((number) => {
-                if (number <= 1) count++;///////?
-            })
-            await UserModel.countUsersRegister(input, 'email').then((number) => {
-                if (number <= 1) count++;///////?
-            })
 
-            if (count == 2) {
-                if (req.file == undefined) {
-                    input.avatar = input.image_old;
-                } else {
-                    input.avatar = req.file.filename;
-                    FileHelpers.remove('public/uploads/users/', input.image_old);
-                }
-
-                input.id = req.user.id;
-                UserModel.saveUser(input, { task: 'edit-info' }).then(() => { //edit info
-                    res.redirect(linkIndex);
-                });
-            } else {
-                if (req.file != undefined) {
-                    FileHelpers.remove('public/uploads/users/', req.file.filename);
-                }
-                UserModel.getUser(req.user.id).then((user) => { 
-                    let date = null;
-                    if (user.dob != null && user.dob != undefined && user.dob.toString().length > 9) {
-                        date = StringHelpers.getDate(user.dob.toString());
+            UserModel.getAllUsersByEmail(input.email).then(async (users) => {
+                let user = users[0];
+                if (user == undefined || user.length == 0 || user.email == req.user.email) { //valid
+                    if (req.file == undefined) {
+                        input.avatar = input.image_old;
+                    } else {
+                        input.avatar = req.file.filename;
+                        FileHelpers.remove('public/uploads/users/', input.image_old);
                     }
-                    user.avatar = input.image_old;
-                    res.render(`${folderView}info`, {
-                        layout: layoutFrontend,
-                        errors: [notify.ERROR_INFO],
-                        user,
-                        date,
-                        pageTitle: 'info'
+    
+                    input.id = req.user.id;
+                    UserModel.saveUser(input, { task: 'edit-info' }).then(() => { //edit info
+                        res.redirect(linkIndex);
                     });
-                });    
-            }
+                } else { //invalid
+                    if (req.file != undefined) {
+                        FileHelpers.remove('public/uploads/users/', req.file.filename);
+                    }
+                    UserModel.getUser(req.user.id).then((user) => { 
+                        let date = null;
+                        if (user.dob != null && user.dob != undefined && user.dob.toString().length > 9) {
+                            date = StringHelpers.getDate(user.dob.toString());
+                        }
+                        user.avatar = input.image_old;
+                        res.render(`${folderView}info`, {
+                            layout: layoutFrontend,
+                            errors: [notify.ERROR_INFO],
+                            user,
+                            date,
+                            pageTitle: 'info'
+                        });
+                    });    
+                }
+            })
         }
     })
 });
