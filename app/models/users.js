@@ -35,6 +35,11 @@ module.exports = {
             .find({email: email })
     },
 
+    getAllUsersByToken: (resetPasswordToken, resetPasswordExpires) => {
+        return UserModel
+            .find({resetPasswordToken: resetPasswordToken, resetPasswordExpires: resetPasswordExpires })
+    },
+
     getUserByUsername: (username) => {
        return UserModel
        .find({ status: 'Hoạt động', username: username })
@@ -83,7 +88,9 @@ module.exports = {
         }
         if (options.task == "edit-password") {
             return UserModel.updateOne({_id: user.id}, {
-                password: user.password
+                password: user.password,
+                resetPasswordToken: undefined,
+                resetPasswordExpires: undefined
             });
         }
         if (options.task == "edit-info") {
@@ -94,6 +101,12 @@ module.exports = {
                 alias: user.alias,
                 email: user.email,
                 dob: user.dob
+            });
+        }
+        if (options.task == "edit-token") {
+            return UserModel.updateOne({ _id: user.id }, {
+                resetPasswordToken: user.resetPasswordToken,
+                resetPasswordExpires: user.resetPasswordExpires
             });
         }
     }

@@ -5,33 +5,33 @@
 <link rel="stylesheet" href="frontend/css/signup_style.css">
 
 <div class="signup-form">
-    <form action="<%= linkPrefix %>change-password" method="post">
-        <h2>Change Password</h2>
-        <p class="hint-text">Change your password</p>
+    <form action="<%= linkPrefix %>reset/<%= token %>" method="post">
+        <h2>Reset</h2>
+        <p class="hint-text">Reset</p>
         <% include ./../../elements/errors %>
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        Nhập username
+                        Nhập password
                     </div>
                 </div>
-                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                <input type="password" class="form-control input-lg" name="password" placeholder="password"
+                    required="required">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        Nhập email
+                        Nhập lại password
                     </div>
                 </div>
-                <input type="email" class="form-control input-lg" name="email" placeholder="Email Address"
+                <input type="password" class="form-control input-lg" name="confirm_password" placeholder="confirm password"
                     required="required">
             </div>
         </div>
         <div class="form-group">
-            <input name="pageTitle" value="change-password" type="hidden"/>
             <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Gửi</button>
         </div>
     </form>
