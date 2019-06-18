@@ -6,7 +6,7 @@
 }
 .card-grid .card {
     width: 300px;
-    height: 400px;
+    height: 100%;
 }
 .card {
     margin: 1rem;
@@ -36,7 +36,7 @@
     }
     .card-grid .card {
         width: 300px;
-        height: 400px;
+        height: 100%;
     }
     .pagination .page-link {
         padding: 0.5rem 1rem;
