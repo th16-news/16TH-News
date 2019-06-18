@@ -3,11 +3,11 @@ const notify = require(__path_configs + 'notify');
 
 
 const options = {
-    name: { min: 1, max: 200 },
+    name: { min: 1, max: 1000 },
     category_id: { value: 'novalue' },
     type: { value: 'novalue' },
-    summary: { min: 1, max: 500 },
-    content: { min: 1, max: 10000 },
+    summary: { min: 1, max: 1000 },
+    content: { min: 1, max: 1000000 },
 }
 
 
