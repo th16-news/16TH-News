@@ -123,9 +123,8 @@
                             </thead>
                             <tbody>
                                 <% if (data.length > 0) { 
-                                        data.reverse().forEach( (item, index) => { %>
+                                        data.forEach( (item, index) => { %>
                                 <tr>
-                                   
                                     <td>
                                         <%= (params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage) + index + 1 %>
                                     </td>
@@ -154,7 +153,17 @@
                                         <td><%= getDate(item.dob.toString()) %></td>
                                     <% } %>
                                     
-                                    <td><%= item.renewal_date %></td>
+                                    <% if (item.request_adjourn == true) { %>
+                                        <td>
+                                            <a href="<%= linkPrefix %>adjourn/<%= item.id %>" type="button"
+                                                        class="btn btn-primary btn-sm">Gia hạn</a>
+                                        </td>
+                                    <% } else if (item.renewal_date != undefined && item.renewal_date != null) { %>
+                                        <td><%= getDate(item.renewal_date.toString()) %></td>
+                                    <% } else { %>
+                                        <td></td>
+                                    <% } %>
+                                    
                                     <td>
                                         <a href="<%= linkPrefix %>form/<%= item.id %>" type="button"
                                             class="btn btn-warning btn-sm">Sửa</a>

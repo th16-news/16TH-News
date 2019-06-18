@@ -10,8 +10,6 @@ module.exports = {
     listArticles: (params, options = null) => {
         let objWhere = {};
         if (params.category != undefined) objWhere.category = params.category;
-        //let sort = {};
-        //sort[params.sortField] = params.sortType;
         if (params.currentStatus !== 'all') objWhere.status = StringHelpers.translate(params.currentStatus);
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
 

@@ -20,6 +20,7 @@ const linkIndex = StringHelpers.formatLink('/' + systemConfig.prefixFrontend + '
 const linkLogin = StringHelpers.formatLink('/' + systemConfig.prefixFrontend + '/auth/login/');
 const linkReset = StringHelpers.formatLink('/' + systemConfig.prefixFrontend + '/auth/reset/');
 const linkForgetPassword = StringHelpers.formatLink('/' + systemConfig.prefixFrontend + '/auth/forget-password/');
+const linkAdjourn = StringHelpers.formatLink('/' + systemConfig.prefixFrontend + '/auth/adjourn/');
 
 
 
@@ -169,6 +170,29 @@ router.post('/info', async (req, res, next) => {
             })
         }
     })
+});
+
+router.get('/adjourn', (req, res, next) => {
+    UserModel.getUser(req.user.id).then((user) => { 
+        let date = null;
+        if (user.renewal_date != null && user.renewal_date != undefined && user.renewal_date.toString().length > 9) {
+            date = StringHelpers.getDate(user.renewal_date.toString());
+        } 
+        res.render(`${folderView}adjourn`, {
+            layout: layoutFrontend,
+            errors: null,
+            is_request: user.request_adjourn,
+            date,
+            pageTitle: 'adjourn'
+        });
+    });    
+});
+
+
+router.post('/adjourn', async (req, res, next) => {
+    await UserModel.saveUser(req.user, { task: 'edit-request-adjourn' }).then(() => { 
+        res.redirect(linkAdjourn)
+    }); 
 });
 
 

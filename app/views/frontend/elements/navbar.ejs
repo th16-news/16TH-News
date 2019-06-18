@@ -75,10 +75,12 @@
                         <a class="dropdown-item" href="<%= linkPrefix %>info">Xem thông tin</a>
                         <% if (userInfo.position == 'Phóng viên') { %>
                             <a class="dropdown-item" href="/writer">Quản lý</a>
-                        <% } if (userInfo.position == 'Biên tập viên') { %>
+                        <% } else if (userInfo.position == 'Biên tập viên') { %>
                             <a class="dropdown-item" href="/editor">Quản lý</a>
-                        <% } if (userInfo.position == 'Quản trị viên') { %>
+                        <% } else if (userInfo.position == 'Quản trị viên') { %>
                             <a class="dropdown-item" href="/administrator">Quản lý</a>
+                        <% } else if (userInfo.position == 'Đọc giả') { %>
+                            <a class="dropdown-item" href="<%= linkPrefix %>adjourn">Gia hạn tài khoản</a>
                         <% } %>
                         <a class="dropdown-item" href="<%= linkPrefix %>logout">Đăng xuất</a>
                     </div>

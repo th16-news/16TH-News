@@ -22,6 +22,7 @@
 
 <!-- Container -->
 <div class="container justify-content-center">
+    <% if (article.type != 'Premium' || (article.type == 'Premium' && ((userInfo.position == 'Đọc giả' && userInfo.renewal_date > Date.now()) || userInfo.position == 'Phóng viên' || userInfo.position == 'Biên tập viên' ||userInfo.position == 'Quản trị viên'))) { %>
     <br class="my-4">
     <div class="container post">
         <nav class="breadcrumb m-0">
@@ -140,4 +141,9 @@
             </div>
         <% }) %>
     </div>
+    <% } else { %>
+    <div class="container post">
+        <h1>Nếu bạn là đọc giả đã có tài khoản nhưng không xem được bài viết Premium, hãy gia hạn tài khoản để xem được bài viết Premium!</h1>
+    </div>
+    <% } %>
 </div>

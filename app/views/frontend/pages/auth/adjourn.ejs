@@ -1,0 +1,31 @@
+<%
+    const linkPrefix = systemConfig.prefixFrontend + `/auth/`;
+%>
+
+<link rel="stylesheet" href="frontend/css/signup_style.css">
+
+<div class="signup-form">
+    <form action="<%= linkPrefix %>adjourn" method="post">
+        <h2>Gia hạn đọc giả</h2>
+        <p class="hint-text">Gia hạn đọc giả</p>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Ngày hết hạn
+                    </div>
+                </div>
+                <input type="text" class="form-control" name="renewal_date" placeholder="renewal date"
+                    value="<%= date %>" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <% if (is_request == true) { %>
+                <button type="submit" class="btn btn-warning btn-lg btn-block signup-btn">Hủy yêu cầu gia hạn</button>
+            <% } else { %>
+                <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Yêu cầu gia hạn thêm 1 tuần</button>
+            <% } %>
+            
+        </div>
+    </form>
+</div>

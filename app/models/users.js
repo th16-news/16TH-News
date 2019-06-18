@@ -8,13 +8,11 @@ const uploadFolder = 'public/uploads/users/';
 module.exports = {
     listUsers: (params) => {
         let objWhere = {};
-        //let sort = {};
-        //sort[params.sortField] = params.sortType;
         if (params.currentPosition !== 'all') objWhere.position = StringHelpers.translate_position(params.currentPosition);
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel
                 .find(objWhere)
-                //.sort(sort)
+                .sort({ request_adjourn: -1 })
                 .skip((params.pagination.currentPage-1)*(params.pagination.totalItemsPerPage))
                 .limit(params.pagination.totalItemsPerPage);
     },
@@ -28,6 +26,12 @@ module.exports = {
         if (params.currentPosition !== 'all') objWhere.position = StringHelpers.translate_position(params.currentPosition);
         if (params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         return UserModel.countDocuments(objWhere);
+    },
+
+    getUserByEmail: (email) => {
+        return UserModel
+            .find({ status: 'Hoạt động', email: email })
+            .select('id name email password')
     },
 
     getAllUsersByEmail: (email) => {
@@ -77,13 +81,17 @@ module.exports = {
         if (options.task == "add") {
             user.status = 'Hoạt động';
             user.position = 'Đọc giả';
+            user.renewal_date = Date.now() + 7*24*3600*1000;
+            user.request_adjourn = false;
             return new UserModel(user).save();
         }
         if (options.task == "edit") {
             return UserModel.updateOne({_id: user.id}, {
                 position: user.position,
                 status: (user.status == 'active') ? 'Hoạt động' : 'Không hoạt động',
-                category: user.category
+                category: user.category,
+                renewal_date: (user.position == 'Đọc giả') ? (Date.now() + 7*24*3600*1000) : undefined,
+                request_adjourn: (user.position == 'Đọc giả') ? false : undefined
             });
         }
         if (options.task == "edit-password") {
@@ -107,6 +115,18 @@ module.exports = {
             return UserModel.updateOne({ _id: user.id }, {
                 resetPasswordToken: user.resetPasswordToken,
                 resetPasswordExpires: user.resetPasswordExpires
+            });
+        }
+        if (options.task == "edit-request-adjourn") {
+            return UserModel.updateOne({ _id: user.id }, {
+                request_adjourn: true
+            });
+        }
+        if (options.task == "edit-adjourn") {
+            return UserModel.updateOne({ _id: user.id }, {
+                request_adjourn: false,
+                renewal_date: Date.now() + 7*24*3600*1000,
+                status: 'Hoạt động'
             });
         }
     }

@@ -14,6 +14,7 @@ var schema = new mongoose.Schema({
     email: String,
     dob: Date,
     renewal_date: Date,
+    request_adjourn: Boolean,
     username: String,
     password: String,
     resetPasswordToken: String,

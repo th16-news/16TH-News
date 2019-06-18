@@ -26,8 +26,6 @@ router.get('(/position/:position)?', async (req, res, next) => {
   params.keyword = ParamsHelpers.getParam(req.query, 'keyword', '');
   params.currentPosition = ParamsHelpers.getParam(req.params, 'position', 'all');
   let statusFilter = await UtilsHelpers.createFilterStatus(params.currentPosition, 'users');
-  //params.sortField = ParamsHelpers.getParam(req.session, 'sort_field', 'name');
-  //params.sortType = ParamsHelpers.getParam(req.session, 'sort_type', 'asc');
 
 
   params.pagination = {
@@ -61,6 +59,13 @@ router.get('/change-status/:id/:status', (req, res, next) => {
     req.flash('success', notify.CHANGE_STATUS_SUCCESS);
     res.redirect(linkIndex);
   });
+});
+
+
+router.get('/adjourn/:id', async (req, res, next) => {
+  await UserModel.saveUser(req.params, { task: 'edit-adjourn' }).then(() => { 
+      res.redirect(linkIndex)
+  }); 
 });
 
 

@@ -3,12 +3,9 @@ const CategoryModel = require(__path_schemas + 'categories');
 module.exports = {
     listCategories: () => {
         let objWhere = {};
-        //let sort = {};
-        //sort[params.sortField] = params.sortType;
       
         return CategoryModel
                 .find(objWhere)
-                //.sort(sort)
     },
 
     listCategoriesInSelectbox: () => {
