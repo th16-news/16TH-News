@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/th16-news/16TH-News#readme",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
     "crypto": "^1.0.1",
